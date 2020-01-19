@@ -1,14 +1,19 @@
 import React from 'react'
 
+
 import { createAppContainer } from 'react-navigation';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Transition } from 'react-native-reanimated';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 
 import HomeScreen from '../App/Home/HomeScreen'
 import SettingsScreen from '../App/Notification/NotificationScreen'
 import ModalScreen from '../App/Modal/ModalScreen'
+import AllChatsScreen from '../App/Chat/AllChats'
 import ChatScreen from '../App/Chat/ChatScreen'
 import AadhaarScreen from '../Auth/SignUp/AadhaarScreen'
 import OTPScreen from '../Auth/SignUp/OTPScreen'
@@ -16,26 +21,31 @@ import PasswordScreen from '../Auth/SignUp/PasswordScreen'
 import LogInScreen from '../Auth/Login/LoginScreen'
 import AuthLoadingScreen from '../AuthLoading/AuthLoadingScreen'
 
+
 const FullStack =  createBottomTabNavigator(
     {
       Home: HomeScreen,
-      Settings: SettingsScreen,
+      Notifications: SettingsScreen,
+      Chats:AllChatsScreen
     },
     {
       defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
           const { routeName } = navigation.state;
-          let IconComponent = Ionicons;
+          let IconComponent = MaterialCommunityIcons;
           let iconName;
           if (routeName === 'Home') {
             iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
+              ? 'home'
+              : 'home-outline';
             // Sometimes we want to add badges to some icons.
             // You can check the implementation below.
-            IconComponent = HomeIconWithBadge;
-          } else if (routeName === 'Settings') {
-            iconName = focused ? 'ios-list-box' : 'ios-list';
+          } else if (routeName === 'Notifications') {
+            IconComponent=Ionicons
+            iconName = focused ? 'ios-notifications' : 'ios-notifications-outline';
+          } else if (routeName === 'Chats') {
+            IconComponent=MaterialCommunityIcons
+            iconName = focused ? 'message-text' : 'message-text-outline';
           }
   
           // You can return any component that you like here!
@@ -43,7 +53,7 @@ const FullStack =  createBottomTabNavigator(
         },
       }),
       tabBarOptions: {
-        activeTintColor: 'tomato',
+        activeTintColor: 'tomato',  
         inactiveTintColor: 'gray',
       },
     }
