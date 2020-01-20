@@ -1,18 +1,12 @@
 import React from 'react';
-import { Container, Header, Content, Form, Text,Button,Icon, Input, Label , Left, Body, Right, Title} from 'native-base';
+import { Container, Content, Form, Text,Button,Icon} from 'native-base';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
-  TextInput,
-  StatusBar,
   TouchableOpacity,
   Alert
 } from 'react-native';
 import {
-  TextField,
-  FilledTextField,
   OutlinedTextField,
 } from 'react-native-material-textfield';
 
