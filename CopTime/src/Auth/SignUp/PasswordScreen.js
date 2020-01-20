@@ -9,7 +9,7 @@ import {
   OutlinedTextField,
 } from 'react-native-material-textfield';
 
-export default class App extends React.Component {
+export default class PasswordScreen extends React.Component {
   constructor() {
     super();
     this.state = {

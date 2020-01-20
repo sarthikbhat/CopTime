@@ -53,14 +53,14 @@ export default class HomeScreen extends Component {
                             </TouchableNativeFeedback>
                         </View>
                         <View style={styles.Help} elevation={1} >
-                            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('Modal') }} style={styles.touchableHelp}>
+                            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('Modal',{disabled:false,value:false} )}} style={styles.touchableHelp}>
                                 <View style={styles.HelpInner} >
                                     <Text>Urgent Help</Text>
                                 </View>
                             </TouchableNativeFeedback>
                         </View>
                         <View style={styles.Help} elevation={1} >
-                            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('Modal') }} style={styles.touchableHelp}>
+                            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('Modal',{disabled:true,value:true}) }} style={styles.touchableHelp}>
                                 <View style={styles.HelpInner} >
                                     <Text>Lodge a complaint</Text>
                                 </View>
