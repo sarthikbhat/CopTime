@@ -24,7 +24,13 @@ import AuthLoadingScreen from '../AuthLoading/AuthLoadingScreen'
 
 const FullStack =  createBottomTabNavigator(
     {
-      Home: HomeScreen,
+      Home: {
+        screen: HomeScreen,
+        navigationOptions: {
+          title: 'Home',
+          header: null 
+        },
+      },
       Notifications: SettingsScreen,
       Chats:AllChatsScreen
     },
@@ -68,15 +74,33 @@ const ComplaintSwitch=createAnimatedSwitchNavigator(
 
 const AppStack = createStackNavigator(
     {
-        Full: FullStack,
-        Complaint: ComplaintSwitch
+        Full: {
+          screen: FullStack,
+        navigationOptions: {
+          title: 'Full',
+          header: null 
+        },
+        },
+        Complaint:  ComplaintSwitch
     }
 );
 
 const UIDAIStack = createStackNavigator(
     {
-        Aadhaar: AadhaarScreen,
-        OTP: OTPScreen
+        Aadhaar: {
+          screen: AadhaarScreen,
+        navigationOptions: {
+          title: 'Aadhaar',
+          header: null 
+        },
+        },
+        OTP:  {
+          screen: OTPScreen,
+        navigationOptions: {
+          title: 'OTP',
+          header: null 
+        },
+        },
     }
 );
 
