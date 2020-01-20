@@ -18,14 +18,14 @@ export default class AuthLoadingScreen extends Component {
             end = new Date().getTime();
           }
         }
-        wait(300)
+        wait(1300)
         this.props.navigation.navigate(userToken ? 'App' : 'Auth');
       };
     
 
     render() {
         return (
-            <View>
+            <View style={{width:"100%",height:"100%",backgroundColor:'tomato'}} >
               <Text>Helo ALS</Text>  
             </View>
         )
