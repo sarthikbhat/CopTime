@@ -6,7 +6,7 @@ import {
   TextInput,
 } from 'react-native';
 
-export default class App extends React.Component {
+export default class OTPScreen extends React.Component {
   constructor() {
     super();
     this.state = {
