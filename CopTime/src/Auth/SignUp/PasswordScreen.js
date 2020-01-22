@@ -10,11 +10,8 @@ import {
 } from 'react-native-material-textfield';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
-<<<<<<< HEAD
-=======
 // import PStnSelect from './PStnSelectScreen.js'
 
->>>>>>> d69cdda74288011cdc04c04bd34c4726e6754aa0
 export default class PasswordScreen extends React.Component {
   constructor() {
     super();
