@@ -8,7 +8,7 @@ import {
 import {
   OutlinedTextField,
 } from 'react-native-material-textfield';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { TouchableNativeFeedback,TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 // import PStnSelect from './PStnSelectScreen.js'
 
@@ -57,7 +57,7 @@ export default class PasswordScreen extends React.Component {
                 onChangeText={confPassword => this.setState({ confPassword })}
               />
               <Button iconRight rounded primary style={styles.buttonText} onPress={() => this.redirectLogin()}>
-                <Text>Next</Text>
+              <Text style={{width:'80%'}}>Next</Text>
                 <Icon name='arrow-forward' />
               </Button>
             </View>
@@ -66,7 +66,7 @@ export default class PasswordScreen extends React.Component {
                 onPress={() => this.setState(prevState => { return { volunteer: !prevState.volunteer } })}
                 checked={this.state.volunteer} />
               <Body>
-                <Text>Do you want to act as a volunteer?</Text>
+                <Text onPress={() => this.setState(prevState => { return { volunteer: !prevState.volunteer } })}>Do you want to act as a volunteer?</Text>
               </Body>
             </ListItem>
             <Text>your nearest police station is (Loading)</Text>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   buttonText: {
     marginTop: '5%',
     justifyContent: "center",
-    width: '50%',
+    width: '40%',
     alignSelf: "center",
     backgroundColor: "#2196f3"
   },

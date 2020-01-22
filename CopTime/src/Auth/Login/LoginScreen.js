@@ -57,7 +57,7 @@ export default class LoginScreen extends React.Component {
             onChangeText={password =>this.setState({password})}
           />
           <Button iconRight rounded primary style={styles.buttonText} onPress={()=>this.setLogin()}>
-            <Text>Login</Text>
+            <Text style={{width:'80%'}}>Login</Text>
             <Icon name='arrow-forward'/>
           </Button>
           <TouchableOpacity >

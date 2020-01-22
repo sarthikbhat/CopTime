@@ -8,7 +8,7 @@ export default class AuthLoadingScreen extends Component {
     }
 
     _bootstrapAsync = async () => {
-        const userToken='jksk'
+        const userToken=undefined
         // const userToken = await AsyncStorage.getItem('userToken');
         // const wait= await this.waiter(3)
         function wait(ms) {

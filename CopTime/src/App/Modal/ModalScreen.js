@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet, Dimensions, ScrollView, TouchableNativeFeedback } from 'react-native'
+import { View, TextInput, StyleSheet, Dimensions, ScrollView, TouchableNativeFeedback } from 'react-native'
 import { Overlay } from 'react-native-elements';
 import { Switch } from 'react-native-gesture-handler';
 import {
   OutlinedTextField,
 } from 'react-native-material-textfield';
-import { Button } from 'native-base';
+import { Button ,Text} from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 
 const options = {
@@ -88,10 +88,10 @@ export default class ModalScreen extends Component {
                 <Text style={styles.btnText} >Upload Image</Text>
               </Button>
             </TouchableNativeFeedback>
-            <TextInput editable={false} style={{ fontSize: 20, borderColor: 'gray', borderBottomWidth: 1, flex: 0.7, marginTop: 10, paddingLeft: 10 }}>{this.state.source}</TextInput>
+            <TextInput editable={false} style={{ fontSize: 20, borderColor: 'gray', borderBottomWidth: 1, flex: 1, marginTop: 10, paddingLeft: 10 }}>{this.state.source}</TextInput>
           </View>
         </View>
-        <Button iconRight rounded primary style={styles.submit} onPress={()=>{this.props.navigation.navigate('Chat')}}>
+        <Button rounded primary style={styles.submit} onPress={()=>{this.props.navigation.navigate('Chat')}}>
           <Text style={styles.btnText} >Next</Text>
         </Button>
       </View>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     paddingTop: '5%',
   },
   imgBut: {
-    flex: 0.6,
+    // flex: 0.6,
     marginTop: '5%',
     justifyContent: "center",
     width: '40%',
@@ -135,6 +135,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#2196f3"
   },
   btnText:{
-    color:'white'
+    color:'white',
+    width:'100%',
+    textAlign:'center'
   }
 })

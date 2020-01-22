@@ -47,7 +47,7 @@ export default class AdhaarScreen extends React.Component {
             onChangeText={adhaar =>this.setState({adhaarNumber:adhaar})}
           />
           <Button iconRight rounded primary style={styles.buttonText} onPress={()=>this.setOTP()}>
-            <Text>Next</Text>
+          <Text style={{width:'80%'}}>Next</Text>
             <Icon name='arrow-forward'/>
           </Button>
           </View>
@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
   buttonText:{
     marginTop:'5%',
     justifyContent:"center",
-    width:'50%',
+    width:'40%',
     alignSelf: "center",
-    backgroundColor:"#2196f3"
+    backgroundColor:"#2196f3",
   },
   createClick:{
     textAlign:"center",
