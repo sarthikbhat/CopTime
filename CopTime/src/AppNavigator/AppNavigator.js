@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 import { createAppContainer } from 'react-navigation';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -105,29 +104,11 @@ const UIDAIStack = createStackNavigator(
   }
 );
 
-const PasswordStack= createStackNavigator(
-  {
-    Password:{
-      screen: PasswordScreen,
-      navigationOptions: {
-        title: 'Password',
-        header: null
-      },
-    },
-    PStnSelect:{
-      screen: PStnSelectScreen,
-      navigationOptions: {
-        title: 'PStnSelect',
-        header: null
-      },
-    }
-  }
-)
 
 const SignUpStack = createAnimatedSwitchNavigator(
   {
     UIDAI: UIDAIStack,
-    Password: PasswordStack
+    Password: PasswordScreen
   }
 );
 

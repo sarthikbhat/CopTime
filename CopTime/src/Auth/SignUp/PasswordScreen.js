@@ -10,6 +10,8 @@ import {
 } from 'react-native-material-textfield';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
+// import PStnSelect from './PStnSelectScreen.js'
+
 export default class PasswordScreen extends React.Component {
   constructor() {
     super();
@@ -69,9 +71,11 @@ export default class PasswordScreen extends React.Component {
             </ListItem>
             <Text>your nearest police station is (Loading)</Text>
             <Text>JVPD P STN</Text>
-            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('PStnSelect') }}>
+            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('PStnSelect'); console.warn('clicked') }}>
               <Text>Click to change</Text>
             </TouchableNativeFeedback>
+            {/* <PStnSelectScreen modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible} /> */}
+
           </Form>
         </Content>
       </Container>
