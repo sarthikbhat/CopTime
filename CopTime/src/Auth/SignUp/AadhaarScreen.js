@@ -38,7 +38,10 @@ export default class AdhaarScreen extends React.Component {
   render() {
     return (
       <Container style={styles.container}>
-         <Content contentContainerStyle={{flex:1,padding:'5%'}}>
+         <Content contentContainerStyle={{flex:1,padding:'5%',justifyContent: 'center',}}>
+         <Text style={styles.adhaarText}>
+            Enter Your Adhaar Number
+          </Text>
           <Form styles={styles.form}>
           <View style={styles.l}>
           <OutlinedTextField
@@ -80,5 +83,10 @@ const styles = StyleSheet.create({
     backgroundColor:'#ffff',
     padding:'7%',
     elevation:1
+  },
+  adhaarText:{
+    textAlign:"center",
+    fontSize:22,
+    // padding:
   }
 })

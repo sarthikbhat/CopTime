@@ -46,6 +46,7 @@ export default class OTPScreen extends React.Component {
           <TextInput
         style={styles.textField}
         keyboardType="number-pad"
+        underlineColorAndroid ='transparent'
       />
           <TextInput
         style={styles.textField}
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
   container: { 
   },
   textField: {
+    borderBottomWidth: 'none'
   },
   buttonText:{
     marginTop:'5%',
