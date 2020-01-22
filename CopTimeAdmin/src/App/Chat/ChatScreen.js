@@ -95,7 +95,7 @@ class ChatScreen extends React.Component {
                             this.state.allChats.map(elm => {
                                 return (
                                     elm.type == "sent" ? (
-                                            <View style={[styles.messageContainer, styles.send]} key={this.state.allChats.indexOf(elm)} >
+                                            <View style={[styles.messageContainer, styles.send]} >
                                                 <View style={[styles.messageTextBox, styles.sendMessageTextBox]} >
                                                     <Text style={styles.sendMessageText} >{elm.data}</Text>
                                                 </View>
