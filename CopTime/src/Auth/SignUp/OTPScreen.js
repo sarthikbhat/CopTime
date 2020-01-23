@@ -33,6 +33,24 @@ export default class OTPScreen extends React.Component {
          this.props.navigation.navigate('Password')
    }
 
+  //  focusPrevious(key, index) {
+  //   if (key === 'Backspace' && index !== 0)
+  //       this.otpTextInput[index - 1]._root.focus();
+  // }
+
+  // focusNext(index, value) {
+  //     if (index < this.otpTextInput.length - 1 && value) {
+  //         this.otpTextInput[index + 1]._root.focus();
+  //     }
+  //     if (index === this.otpTextInput.length - 1) {
+  //         this.otpTextInput[index]._root.blur();
+  //     }
+  //     const otp = this.state.otp;
+  //     otp[index] = value;
+  //     this.setState({ otp });
+  //     this.props.getOtp(otp.join(''));
+  // }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -47,18 +65,28 @@ export default class OTPScreen extends React.Component {
         style={styles.textField}
         keyboardType="number-pad"
         underlineColorAndroid ='transparent'
+        maxLength={1}
+        ref={ref=>{this.t1=ref}}
+        onChangeText={(text)=>{}}
       />
           <TextInput
         style={styles.textField}
         keyboardType="number-pad"
+        maxLength={1}
+        ref={ref=>{this.t2=ref}}
+        onChangeText={()=>{this.t3.focus()}}
       />
           <TextInput
         style={styles.textField}
         keyboardType="number-pad"
+        maxLength={1}
+        ref={ref=>{this.t3=ref}}
       />
           <TextInput
         style={styles.textField}
         keyboardType="number-pad"
+        maxLength={1}
+        ref={ref=>{this.t4=ref}}
       />
       </View>
       <View>
@@ -78,9 +106,6 @@ export default class OTPScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: { 
-  },
-  textField: {
-    borderBottomWidth: 'none'
   },
   buttonText:{
     marginTop:'5%',
@@ -105,11 +130,12 @@ const styles = StyleSheet.create({
   },
   textField:{
     fontSize:25,
-    padding:'5%',
-     borderColor: 'gray', 
-     borderWidth: 1.5,
+    padding:'5%', 
      flexDirection:"row",
-     marginLeft:'5%'
+     marginLeft:'5%',
+     borderWidth:0,
+     borderColor:'gray',
+     borderBottomWidth:1,
   },
   otpText:{
     textAlign:"center",

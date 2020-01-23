@@ -82,12 +82,9 @@ export default class ModalScreen extends Component {
           </View>
           <View style={{height:50}} ></View>
           <View style={styles.imgUploader}>
-            <TouchableNativeFeedback
-            >
               <Button rounded primary style={styles.imgBut} onPress={() => this.imgFunction()}>
                 <Text style={styles.btnText} >Upload Image</Text>
               </Button>
-            </TouchableNativeFeedback>
             <TextInput editable={false} style={{ fontSize: 20, borderColor: 'gray', borderBottomWidth: 1, flex: 1, marginTop: 10, paddingLeft: 10 }}>{this.state.source}</TextInput>
           </View>
         </View>
