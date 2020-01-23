@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Text,StyleSheet,TouchableOpacity,TouchableNativeFeedback } from 'react-native'
+import {View, Text,StyleSheet,TouchableOpacity,TouchableNativeFeedback, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Notification = [
@@ -20,6 +20,9 @@ const Notification = [
     },
 ]
 
+var {height, width} = Dimensions.get('window');
+
+
 export default class NotificationScreen extends Component {
     constructor() {
         super();
@@ -34,17 +37,22 @@ export default class NotificationScreen extends Component {
             notify:Notification
         })
       }
+
+     
+
     render() {
         const {notify} = this.state
         return (
             <View style={styles.container}>
                 {notify.map((notification, index) => (
-                    <View style={styles.outerNotify} key={index}>
+                    <View style={styles.outerNotify} key={index} >
                         <View style={styles.innerNotify}>
                             <Text style={styles.notifyText}>{notification.notify}</Text>
-                            <TouchableNativeFeedback onPress={()=>this.removeNotification(index)}>
-                                <Icon name="close" size={20} color="gray" style={styles.icon}/>
+                            <View style={styles.icon}>
+                            <TouchableNativeFeedback  onPress={()=>this.removeNotification(index)}>
+                                <Icon name="close" size={25} color="gray" style={{marginTop:2}}/>
                             </TouchableNativeFeedback>
+                        </View>
                         </View>
                         <View style={styles.notifyWhen}>
                             <Text style={styles.time}>{notification.time}</Text>
@@ -61,13 +69,13 @@ const styles = StyleSheet.create({
 
 container:{
     flex:1,
-    padding:'2%'
+    padding:12
 },
 outerNotify:{
     backgroundColor:'#ffffff',
     padding:'2%',
     elevation:7,
-    marginBottom:'2%'
+    marginTop:'5%'
 },
 innerNotify:{
  flexDirection:'row'   
@@ -77,7 +85,14 @@ notifyText:{
     fontSize:19
 },
 icon:{
-    paddingLeft:'0.4%'
+    paddingLeft:'0.4%',
+    borderRadius:30/2,
+    width:30,
+    height:30,
+    marginTop:-21,
+    marginRight:-5,
+    backgroundColor:'#fffdfc',
+    alignItems:'center'
 },
 notifyWhen:{
     flexDirection:'row'
