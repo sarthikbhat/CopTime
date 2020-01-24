@@ -30,7 +30,7 @@ export default class HomeScreen extends Component {
                                     rounded
                                     size="large"
                                     title="AT"
-                                    onPress={() => console.log("Works!")}
+                                    onPress={() => this.props.navigation.navigate('Profile')}
                                     activeOpacity={0.7}
                                 />
                             </View>

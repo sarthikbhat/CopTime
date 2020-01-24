@@ -20,6 +20,7 @@ import PasswordScreen from '../Auth/SignUp/PasswordScreen'
 import PStnSelectScreen from '../Auth/SignUp/PStnSelectScreen'
 import LogInScreen from '../Auth/Login/LoginScreen'
 import AuthLoadingScreen from '../AuthLoading/AuthLoadingScreen'
+import ProfileScreen from '../App/Profile/ProfileScreen'
 
 
 const FullStack = createBottomTabNavigator(
@@ -81,7 +82,8 @@ const AppStack = createStackNavigator(
         header: null
       },
     },
-    Complaint: ComplaintSwitch
+    Complaint: ComplaintSwitch,
+    Profile:ProfileScreen
   }
 );
 
