@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView, Text, TouchableHighlight, TextInput, ToastAndroid, Dimensions } from 'react-native'
+import { View, StyleSheet, ScrollView, Text, TouchableHighlight, TextInput, ToastAndroid, PermissionsAndroid } from 'react-native'
 import Iocon from 'react-native-vector-icons/Ionicons'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TouchableNativeFeedback } from 'react-native-gesture-handler'
-
+import Geolocation from 'react-native-geolocation-service'
+import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
 
 class ChatScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -37,6 +38,11 @@ class ChatScreen extends React.Component {
             value: "",
             tagged: null,
             allChats: [
+            ]
+        }
+    }
+    /*
+
                 {
                     type: "sent",
                     data: "ABC1qwertyuiopqwertyuiopqwerty",
@@ -47,23 +53,12 @@ class ChatScreen extends React.Component {
                     data: "ABC1",
                     timestamp: "09:02 pm"
                 }
-            ]
-        }
-    }
+    */
 
     onChangeText = (value) => {
 
         this.setState({
             value
-        })
-
-    }
-
-    tag = (idx) => {
-
-        ToastAndroid.show(idx.toString(), ToastAndroid.SHORT)
-        this.setState({
-            tagged: idx
         })
 
     }
@@ -80,9 +75,28 @@ class ChatScreen extends React.Component {
 
     }
 
+    componentDidMount=()=>{
+        
+        if(this.props.navigation.state.params['firstTime'] && this.state.allChats.length==0)
+            this.setState({
+                allChats:[{
+                    type:"sent",
+                    data:
+`Sent from ${this.props.navigation.state.params['latitude']}, ${this.props.navigation.state.params['longitude']}
+                        
+This is an SOS alert
+Please send help as fast as possible
+Thank You`,
+                    timestamp:"09:02 pm"
+                }]
+            })
+
+    }
+    
+
     render() {
 
-        const { allChats } = this.state
+        console.log(this.props.navigation.state.params['sos'])
 
         return (
             <View style={styles.chatPage}>
@@ -91,6 +105,7 @@ class ChatScreen extends React.Component {
                         onContentSizeChange={(contentWidth, contentHeight) => {
                             this.scrollView.scrollToEnd({ animated: true });
                         }}>
+
                         {
                             this.state.allChats.map(elm => {
                                 return (

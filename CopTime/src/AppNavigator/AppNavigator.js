@@ -10,16 +10,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 import HomeScreen from '../App/Home/HomeScreen'
-import SettingsScreen from '../App/Notification/NotificationScreen'
+import NotificationsScreen from '../App/Notification/NotificationScreen'
 import ModalScreen from '../App/Modal/ModalScreen'
 import AllChatsScreen from '../App/Chat/AllChats'
 import ChatScreen from '../App/Chat/ChatScreen'
 import AadhaarScreen from '../Auth/SignUp/AadhaarScreen'
 import OTPScreen from '../Auth/SignUp/OTPScreen'
 import PasswordScreen from '../Auth/SignUp/PasswordScreen'
-import PStnSelectScreen from '../Auth/SignUp/PStnSelectScreen'
 import LogInScreen from '../Auth/Login/LoginScreen'
 import AuthLoadingScreen from '../AuthLoading/AuthLoadingScreen'
+import ProfileScreen from '../App/Profile/ProfileScreen'
+
 
 
 const FullStack = createBottomTabNavigator(
@@ -31,7 +32,7 @@ const FullStack = createBottomTabNavigator(
         header: null
       },
     },
-    Notifications: SettingsScreen,
+    Notifications: NotificationsScreen,
     Chats: AllChatsScreen
   },
   {
@@ -81,7 +82,8 @@ const AppStack = createStackNavigator(
         header: null
       },
     },
-    Complaint: ComplaintSwitch
+    Complaint: ComplaintSwitch,
+    Profile:ProfileScreen
   }
 );
 
