@@ -120,12 +120,12 @@ class Onboarding extends React.Component {
           <Block flex space="around" style={{ zIndex: 2 }}>
             <Block style={styles.title}>
               <Block>
-                <Text color="white" size={55}>
+                <Text color="white" size={55} bold >
                   Cop
                   </Text>
               </Block>
               <Block>
-                <Text color="white" size={55}>
+                <Text color="white" size={55} bold >
                   Time
                   </Text>
               </Block>

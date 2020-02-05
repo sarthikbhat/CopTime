@@ -65,7 +65,13 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
 
 
 const NotificationsStack = createStackNavigator({
-  NotificationScreen: NotificationsScreen,
+  NotificationScreen: {
+    screen: NotificationsScreen,
+    navigationOptions: {
+      title: 'NotificationsScreen',
+      header: null
+    },
+  },
   RouteDirector: RouteDirector
 })
 
@@ -107,7 +113,7 @@ const FullStack = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'tomato',
+      activeTintColor: '#5e73e5',
       inactiveTintColor: 'gray',
     },
   }
@@ -116,9 +122,9 @@ const FullStack = createBottomTabNavigator(
 const ComplaintSwitch = createAnimatedSwitchNavigator(
   {
     Modal: ModalScreen,
-    PSSelector:PSSelectorScreen,
+    PSSelector: PSSelectorScreen,
     Chat: ChatScreen,
-    ChatBot:ChatBot
+    ChatBot: ChatBot
   }
 )
 
@@ -165,14 +171,14 @@ const SignUpStack = createAnimatedSwitchNavigator(
 
 const AuthStack = createStackNavigator(
   {
-    LogIn:  {
+    LogIn: {
       screen: LogInScreen,
       navigationOptions: {
         title: 'LogIn',
         header: null
       },
     },
-    SignUp:  {
+    SignUp: {
       screen: SignUpStack,
       navigationOptions: {
         title: 'SignUp',
