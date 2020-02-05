@@ -1,18 +1,41 @@
-import React, { Component } from 'react'
-import { View, Text, PermissionsAndroid, BackHandler } from 'react-native'
 import Geolocation from 'react-native-geolocation-service'
 import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
+import React from "react";
+import {
+  ImageBackground,
+  Image,
+  StyleSheet,
+  StatusBar,
+  Dimensions,
+  PermissionsAndroid
+} from "react-native";
+import { Block, Button, Text, theme } from "galio-framework";
 
-export default class AuthLoadingScreen extends Component {
+const { height, width } = Dimensions.get("screen");
 
-  componentDidMount=async()=>{
-    this.requestLocationPermission().then(res=>{
+import argonTheme from "../Static/constants/Theme";
+import Images from "../Static/constants/Images";
+
+class Onboarding extends React.Component {
+  componentDidMount = async () => {
+    this.requestLocationPermission().then(res => {
       this._bootstrapAsync()
     })
   }
 
   requestLocationPermission = async () => {
     try {
+      const grantedP = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CALL_PHONE,
+        {
+          title: 'Phone Access',
+          message:
+            'CopTime needs to access your calls',
+          // buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
@@ -39,13 +62,13 @@ export default class AuthLoadingScreen extends Component {
         }).then(function (success) {
           console.log(success); // success => {alreadyEnabled: false, enabled: true, status: "enabled"}
           Geolocation.getCurrentPosition(pos => {
-              console.log(pos)
-              console.log('aao')
+            console.log(pos)
+            console.log('aao')
             console.warn(pos.coords.latitude)
             console.warn(pos.coords.latitude)
-          },err=>{
-              console.log(err)
-          },{
+          }, err => {
+            console.log(err)
+          }, {
             enableHighAccuracy: true,
             timeout: 5000,
             maximumAge: 10000
@@ -65,7 +88,7 @@ export default class AuthLoadingScreen extends Component {
       return null
     }
   }
-  
+
   _bootstrapAsync = async () => {
     const userToken = undefined
     // const userToken = await AsyncStorage.getItem('userToken');
@@ -81,12 +104,76 @@ export default class AuthLoadingScreen extends Component {
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
-
   render() {
+    const { navigation } = this.props;
+
     return (
-      <View style={{ width: "100%", height: "100%", backgroundColor: 'tomato' }} >
-        <Text>Helo ALS</Text>
-      </View>
-    )
+      <Block flex style={styles.container}>
+        <StatusBar hidden />
+        <Block flex center>
+          <ImageBackground
+            source={Images.Onboarding}
+            style={{ height, width, zIndex: 1 }}
+          />
+        </Block>
+        <Block flex space="between" style={styles.padded}>
+          <Block flex space="around" style={{ zIndex: 2 }}>
+            <Block style={styles.title}>
+              <Block>
+                <Text color="white" size={55}>
+                  Cop
+                  </Text>
+              </Block>
+              <Block>
+                <Text color="white" size={55}>
+                  Time
+                  </Text>
+              </Block>
+              <Block style={styles.subTitle}>
+                <Text color="white" size={16}>
+                  Cops and volunteers at your service.
+                  </Text>
+              </Block>
+            </Block>
+            <Block center>              
+                <Text color="white" size={16} >Loading...</Text>
+            </Block>
+          </Block>
+        </Block>
+      </Block>
+    );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.COLORS.BLACK
+  },
+  padded: {
+    paddingHorizontal: theme.SIZES.BASE * 2,
+    position: "relative",
+    bottom: theme.SIZES.BASE,
+    zIndex: 2,
+  },
+  button: {
+    width: width - theme.SIZES.BASE * 4,
+    height: theme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0
+  },
+  logo: {
+    width: 200,
+    height: 60,
+    zIndex: 2,
+    position: 'relative',
+    marginTop: '-50%'
+  },
+  title: {
+    marginTop: '-5%'
+  },
+  subTitle: {
+    marginTop: 20
+  }
+});
+
+export default Onboarding;

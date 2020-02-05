@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Content, Form, Text, Button, Icon, ListItem, CheckBox, Body } from 'native-base';
 import { StyleSheet, View, Alert, TouchableNativeFeedback, ActivityIndicator, Image } from 'react-native';
+import { Button as RNButton } from 'react-native'
 import { OutlinedTextField } from 'react-native-material-textfield';
 import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
 import Geolocation from 'react-native-geolocation-service'
@@ -46,6 +47,51 @@ export default class PasswordScreen extends React.Component {
     }
   }
 
+  onLocationSelect = (lat, long) => {
+    if (lat != this.state.lat || long != this.state.long)
+      this.setState({
+        loading: true,
+        imgLoading: true
+      }, () => {
+        this.pStnMapper(lat, long)
+      })
+  }
+
+  pStnMapper = (lat, long) => {
+    var best_result
+    // Axios.get(`https://maps.googleapis.com/maps/api/place/search/json?location=${lat},${long}&rankby=distance&types=police&sensor=false&key=AIzaSyCgBROiBnx1Ql59mEdqcJl0RiWj2KEyec8`)
+    //   .then(res => {
+    //     best_result = res.data.results[0]
+    //     console.warn('lol')
+    //     this.setState({
+    //       loading: false,
+    //       pStn: best_result,
+    //     })
+    //     if (best_result.photos) {
+    //       Axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${best_result.photos[0].photo_reference}&key=AIzaSyCgBROiBnx1Ql59mEdqcJl0RiWj2KEyec8`)
+    //         .then(res => {
+    //           console.warn(res.request.responseURL)
+    //           this.setState({
+    //             imgLoading: false,
+    //             imgUrl: res.request.responseURL
+    //           })
+    //         })
+    //         .catch(res => {
+    //           this.setState({
+    //             imgLoading: false,
+    //             imgUrl: 'https://img.favpng.com/25/0/20/badge-police-officer-special-police-indian-police-service-png-favpng-bmZPUBHvZtTpXQzhgVTNJ94t6.jpg'
+    //           })
+    //         })
+    //     } else {
+    //       this.setState({
+    //         imgLoading: false,
+    //         imgUrl: 'https://img.favpng.com/25/0/20/badge-police-officer-special-police-indian-police-service-png-favpng-bmZPUBHvZtTpXQzhgVTNJ94t6.jpg'
+    //       })
+    //     }
+    //   })
+  }
+
+
   componentDidMount() {
     LocationServicesDialogBox.checkLocationServicesIsEnabled({
       message: "<h2 style='color: #0af13e'>Use Location ?</h2>This app wants to change your device settings:<br/><br/>Use GPS, Wi-Fi, and cell network for location<br/><br/><a href='#'>Learn more</a>",
@@ -63,35 +109,21 @@ export default class PasswordScreen extends React.Component {
       console.log(error.message); // error.message => "disabled"
     });
 
+
     Geolocation.getCurrentPosition(pos => {
       console.warn(pos.coords.latitude)
       console.warn(pos.coords.longitude)
-      var best_result
-      Axios.get(`https://maps.googleapis.com/maps/api/place/search/json?location=${pos.coords.latitude},${pos.coords.longitude}&rankby=distance&types=police&sensor=false&key=AIzaSyCgBROiBnx1Ql59mEdqcJl0RiWj2KEyec8`)
-        .then(res => {
-          best_result = res.data.results[0]
-          console.warn('lol')
-          this.setState({
-            loading: false,
-            pStn: best_result,
-          })
-          if (best_result.photos) {
-            // Axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${best_result.photos[0].photo_reference}&key=AIzaSyCgBROiBnx1Ql59mEdqcJl0RiWj2KEyec8`)
-            //   .then(res => {
-            //     console.warn(res.request.responseURL)
-                this.setState({
-                  imgLoading:false,
-                  // imgUrl:res.request.responseURL
-                })
-              // })
-          }
-        })
+      this.setState({
+        lat: pos.coords.latitude,
+        long: pos.coords.longitude
+      })
+      this.pStnMapper(pos.coords.latitude, pos.coords.longitude)
     },
       err => {
         console.log(err)
       })
-
   }
+
 
 
   render() {
@@ -130,23 +162,27 @@ export default class PasswordScreen extends React.Component {
                 :
                 <React.Fragment>
                   <Text>{this.state.pStn.name}</Text>
+                  <Text>{this.state.pStn.vicinity}</Text>
                   {this.state.imgLoading ?
                     <ActivityIndicator size="small" color="#00ff00" />
                     :
                     <Image
-                      style={{ width: 300, alignSelf:"center", height: 300, alignSelf:"center" }}
+                      style={{ width: 300, alignSelf: "center", height: 300, alignSelf: "center" }}
                       // source={{ uri: this.state.imgUrl }}
-                      source={{ uri: "https://lh3.googleusercontent.com/p/AF1QipPPJvO1EqwnEiQg3E_r4d2XBtlJpMr8K-bmUTk=s1600-w450" }}
+                    source={{ uri: "https://lh3.googleusercontent.com/p/AF1QipPPJvO1EqwnEiQg3E_r4d2XBtlJpMr8K-bmUTk=s1600-w450" }}
                     />
                   }
-                  <TouchableNativeFeedback onPress={() => { this.setModalVisible(true) }}>
-                    <View>
-                      <Text>Click to change</Text>
-                    </View>
-                  </TouchableNativeFeedback>
+                  {/* <TouchableNativeFeedback onPress={() => { this.setModalVisible(true) }}> */}
+                  {/* <View> */}
+                  <RNButton onPress={() => { this.setModalVisible(true) }} title="Click to Change" />
+                  {/* </View> */}
+                  {/* </TouchableNativeFeedback> */}
                 </React.Fragment>
               }
-              <PStnSelectScreen modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible} />
+              {
+                this.state.modalVisible ?
+                  <PStnSelectScreen modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible} pStnLat={this.state.pStn.geometry.location.lat} pStnLng={this.state.pStn.geometry.location.lng} onLocationSelect={this.onLocationSelect} /> : console.log(this.state.pStn)
+              }
             </Form>
           </Content>
         </Container>

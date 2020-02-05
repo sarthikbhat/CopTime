@@ -143,7 +143,7 @@ export default class HomeScreen extends Component {
                             </TouchableNativeFeedback>
                         </View>
                         <View style={styles.Help} elevation={1} >
-                            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('Modal', { disabled: false, value: false }) }} style={styles.touchableHelp}>
+                            <TouchableNativeFeedback onPress={() => { this.props.navigation.navigate('PSSelector') }} style={styles.touchableHelp}>
                                 <View style={styles.HelpInner} >
                                     <Text>Lodge a complaint</Text>
                                 </View>

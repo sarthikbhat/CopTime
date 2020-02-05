@@ -12,15 +12,62 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import HomeScreen from '../App/Home/HomeScreen'
 import NotificationsScreen from '../App/Notification/NotificationScreen'
 import ModalScreen from '../App/Modal/ModalScreen'
+import PSSelectorScreen from '../App/Modal/PSSelector'
 import AllChatsScreen from '../App/Chat/AllChats'
 import ChatScreen from '../App/Chat/ChatScreen'
+import ChatBot from '../App/Chat/ChatBot'
 import AadhaarScreen from '../Auth/SignUp/AadhaarScreen'
 import OTPScreen from '../Auth/SignUp/OTPScreen'
 import PasswordScreen from '../Auth/SignUp/PasswordScreen'
 import LogInScreen from '../Auth/Login/LoginScreen'
 import AuthLoadingScreen from '../AuthLoading/AuthLoadingScreen'
 import ProfileScreen from '../App/Profile/ProfileScreen'
+import RouteDirector from '../App/RouteDirector/RouteDirector'
 
+
+const transitionConfig = (transitionProps, prevTransitionProps) => ({
+  transitionSpec: {
+    duration: 400,
+    easing: Easing.out(Easing.poly(4)),
+    timing: Animated.timing
+  },
+  screenInterpolator: sceneProps => {
+    const { layout, position, scene } = sceneProps;
+    const thisSceneIndex = scene.index;
+    const width = layout.initWidth;
+
+    const scale = position.interpolate({
+      inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+      outputRange: [4, 1, 1]
+    });
+    const opacity = position.interpolate({
+      inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+      outputRange: [0, 1, 1]
+    });
+    const translateX = position.interpolate({
+      inputRange: [thisSceneIndex - 1, thisSceneIndex],
+      outputRange: [width, 0]
+    });
+
+    const scaleWithOpacity = { opacity };
+    const screenName = "Search";
+
+    if (
+      screenName === transitionProps.scene.route.routeName ||
+      (prevTransitionProps &&
+        screenName === prevTransitionProps.scene.route.routeName)
+    ) {
+      return scaleWithOpacity;
+    }
+    return { transform: [{ translateX }] };
+  }
+});
+
+
+const NotificationsStack = createStackNavigator({
+  NotificationScreen: NotificationsScreen,
+  RouteDirector: RouteDirector
+})
 
 
 const FullStack = createBottomTabNavigator(
@@ -32,7 +79,7 @@ const FullStack = createBottomTabNavigator(
         header: null
       },
     },
-    Notifications: NotificationsScreen,
+    Notifications: NotificationsStack,
     Chats: AllChatsScreen
   },
   {
@@ -69,7 +116,9 @@ const FullStack = createBottomTabNavigator(
 const ComplaintSwitch = createAnimatedSwitchNavigator(
   {
     Modal: ModalScreen,
-    Chat: ChatScreen
+    PSSelector:PSSelectorScreen,
+    Chat: ChatScreen,
+    ChatBot:ChatBot
   }
 )
 
@@ -83,7 +132,7 @@ const AppStack = createStackNavigator(
       },
     },
     Complaint: ComplaintSwitch,
-    Profile:ProfileScreen
+    Profile: ProfileScreen
   }
 );
 
@@ -116,8 +165,15 @@ const SignUpStack = createAnimatedSwitchNavigator(
 
 const AuthStack = createStackNavigator(
   {
-    LogIn: LogInScreen,
-    SignUp: SignUpStack
+    LogIn:  {
+      screen: LogInScreen,
+      navigationOptions: {
+        title: 'LogIn',
+        header: null
+      },
+    },
+    SignUp: SignUpStack,
+    transitionConfig
   }
 );
 
@@ -126,7 +182,8 @@ const App = createAnimatedSwitchNavigator(
     AuthLoading: AuthLoadingScreen,
     App: AppStack,
     Auth: AuthStack
-  }
+  },
+  transitionConfig
 );
 
 export default createAppContainer(App);

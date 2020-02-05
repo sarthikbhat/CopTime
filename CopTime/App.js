@@ -1,6 +1,10 @@
 import React from 'react';
+import { ApolloProvider } from 'react-apollo';
 
 import AppNavigator from './src/AppNavigator/AppNavigator'
+import makeApolloClient from './src/Static/Functions/apollo';
+
+const client = makeApolloClient("token");
 
 class App extends React.Component {
 
@@ -8,9 +12,13 @@ class App extends React.Component {
     super(props)
   }
 
+
+
   render() {
     return (
-      <AppNavigator />
+      <ApolloProvider client={client}>
+        <AppNavigator />
+      </ApolloProvider>
     )
   }
 

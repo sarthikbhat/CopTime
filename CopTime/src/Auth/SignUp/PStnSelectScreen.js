@@ -16,9 +16,9 @@ class Modallar extends Component {
             latitudeDelta: 0.0122,
             longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122
         },
-        locationChosen: false
+        locationChosen: false,
     }
-    mapLocationHandler = (loc) => {
+    mapLocationHandler = (loc, cond) => {
         this.map.animateToRegion({
             ...this.state.focussedLocation,
             latitude: loc.nativeEvent.coordinate.latitude,
@@ -78,7 +78,7 @@ class Modallar extends Component {
             })
     }
     doneHandler = () => {
-        if (this.state.locationChosen == true) {
+        if (this.state.locationChosen == true ) {
             this.props.onLocationSelect(this.state.focussedLocation.latitude, this.state.focussedLocation.longitude)
             this.props.setModalVisible(false)
         }
@@ -103,11 +103,28 @@ class Modallar extends Component {
     componentWillUnmount() {
         LocationServicesDialogBox.stopListener();
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-      }
+    }
+
+    componentDidMount() {
+        var obj = {
+            nativeEvent: {
+                coordinate: {
+                    latitude: this.props.pStnLat,
+                    longitude: this.props.pStnLng
+                }
+            }
+        }
+        console.log(obj)
+
+        setTimeout(() => {
+            this.mapLocationHandler(obj)
+        }, 800);
+    }
+
 
     render() {
         var marker = null
-        if (this.state.locationChosen != false) {
+        if (this.state.locationChosen != false ) {
             marker = <MapView.Marker coordinate={this.state.focussedLocation} />
         }
         return (
@@ -123,25 +140,19 @@ class Modallar extends Component {
                         <Icon style={styles.backIcon} name="md-arrow-round-back" size={23} color="#454545" onPress={() => this.props.setModalVisible(false)} />
                         <Text style={styles.helper}>Choose on Map</Text>
                     </View>
-                    <View style={{flex:1,display:"flex",width:"100%"}}>
-                    <MapView
-                        provider={PROVIDER_GOOGLE}
-                        style={styles.mapViewer}
-                        initialRegion={this.state.focussedLocation}
-                        // region={this.state.focussedLocation}
-                        zoomEnabled
-                        loadingEnabled
-                        onPress={this.mapLocationHandler}
-                        ref={ref => this.map = ref}
-                    >
-                        {marker}
-                    </MapView>
-                    </View>
-                    <View style={{ height:100 }} >
-                        <Text style={styles.helper}>OR </Text>
-                        <View style={styles.button}>
-                            <Button onPress={this.locateMeHandler} title="Locate Me" />
-                        </View>
+                    <View style={{ flex: 1, display: "flex", width: "100%" }}>
+                        <MapView
+                            provider={PROVIDER_GOOGLE}
+                            style={styles.mapViewer}
+                            initialRegion={this.state.focussedLocation}
+                            // region={this.state.focussedLocation}
+                            zoomEnabled
+                            loadingEnabled
+                            onPress={this.mapLocationHandler}
+                            ref={ref => this.map = ref}
+                        >
+                            {marker}
+                        </MapView>
                     </View>
                 </View>
                 <TouchableOpacity onPress={this.doneHandler} >
@@ -164,7 +175,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         elevation: 10,
-        height:50
+        height: 50
     },
     mapViewer: {
         width: "100%",
@@ -173,8 +184,8 @@ const styles = StyleSheet.create({
     },
     button: {
         margin: 8,
-        marginTop:0,
-        marginBottom:15
+        marginTop: 0,
+        marginBottom: 15
     },
     helper: {
         fontSize: 20,

@@ -1,126 +1,200 @@
-import React from 'react';
-import { Container, Content, Form, Text,Button,Icon} from 'native-base';
+import React from "react";
 import {
   StyleSheet,
-  View,
-  TouchableOpacity,
+  ImageBackground,
+  Dimensions,
+  StatusBar,
+  KeyboardAvoidingView,
   Alert
-} from 'react-native';
-import {
-  OutlinedTextField,
-} from 'react-native-material-textfield';
+} from "react-native";
+import { Block, Checkbox, Text, theme } from "galio-framework";
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default class LoginScreen extends React.Component {
+import { Button, Input } from "../../Static/components"
+import { Images, argonTheme } from "../../Static/constants";
+
+const { width, height } = Dimensions.get("screen");
+
+class Register extends React.Component {
+
+  /*onChangeText={phone =>this.setState({phoneNumber:phone})}*/
+
   constructor() {
     super();
     this.state = {
-        phoneNumber:'',
-        password:''
+      phoneNumber: '',
+      password: ''
     };
   }
 
-  setLogin=(e)=>{
-    const {phone , password} = this.state;
+  setLogin = (e) => {
+    const { phone, password } = this.state;
 
-    if(!phone && !password){
-        Alert.alert(
-            'Enter Credentials',
-            'Invalid login credentials , please enter your login details',
-            [
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );
+    if (!phone && !password) {
+      Alert.alert(
+        'Enter Credentials',
+        'Invalid login credentials , please enter your login details',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
     }
-    else{
-        this.props.navigation.navigate('App')
+    else {
+      this.props.navigation.navigate('App')
     }
   }
 
-
   render() {
     return (
-      <Container style={styles.container}>
-         <Content contentContainerStyle={{flex:1, justifyContent: 'center', padding:'10%',}}>
-          <Form styles={styles.form}>
-          <View style={styles.l}>
-          <OutlinedTextField
-            label='Phone number'
-            keyboardType='phone-pad'
-            onChangeText={phone =>this.setState({phoneNumber:phone})}
-          />
-          <OutlinedTextField
-            label='Password'
-            keyboardType='default'
-            style={styles.textField}
-            secureTextEntry={true}
-            onChangeText={password =>this.setState({password})}
-          />
-          <Button iconRight rounded primary style={styles.buttonText} onPress={()=>this.setLogin()}>
-            <Text>Login</Text>
-            <Icon name='arrow-forward'/>
-          </Button>
-          <TouchableOpacity >
-          <Text style={styles.forgot}>Forgot Password?</Text>
-          </TouchableOpacity>
-          </View>
-        </Form>
-      </Content>
-      <Text style={styles.createClick}>Create a new account</Text>
-      <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')}>
-      <Text style={styles.registerClick}>Register</Text>
-      </TouchableOpacity>
-    </Container>
+      <Block flex middle>
+        <StatusBar hidden />
+        <ImageBackground
+          source={Images.RegisterBackground}
+          style={{ width, height, zIndex: 1 }}
+        >
+          <Block flex middle>
+            <Block style={styles.registerContainer}>
+              <Block flex={0.30} middle style={styles.socialConnect}>
+                <Text color="#8898AA" size={12}>
+                  New to this app?
+                </Text>
+                <Block row style={{ marginTop: theme.SIZES.BASE }}>
+                  <Button style={{ ...styles.socialButtons}} onPress={()=>this.props.navigation.navigate('SignUp')} >
+                    <Block row>
+                      <MaterialCommunityIcons
+                        name="login"
+                        size={14}
+                        color={"black"}
+                        style={{ marginTop: 2, marginRight: 5 }}
+                      />
+                      <Text style={styles.socialTextButtons}>Sign Up here</Text>
+                    </Block>
+                  </Button>
+                </Block>
+              </Block>
+              <Block flex  >
+                <Block flex={0.17} middle style={{marginTop:5,marginBottom:5}} >
+                  <Text color="#8898AA" size={12}>
+                    Already registered? Login
+                  </Text>
+                </Block>
+                <Block flex center>
+                  <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior="padding"
+                    enabled
+                  >
+                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                      <Input
+                        borderless
+                        placeholder="Email or phone number"
+                        iconContent={
+                          <MaterialCommunityIcons
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="email"
+                            style={styles.inputIcons}
+                          />
+                        }
+                        onChangeText={phone =>this.setState({phoneNumber:phone})}
+                      />
+                    </Block>
+                    <Block width={width * 0.8}>
+                      <Input
+                        password
+                        borderless
+                        placeholder="Password"
+                        iconContent={
+                          <MaterialCommunityIcons
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="lock-open"
+                            style={styles.inputIcons}
+                          />
+                        }
+                        onChangeText={password =>this.setState({password})}
+                      />
+                    </Block>
+                    <Block row width={width * 0.75} style={{marginTop:20}} >
+                      <Checkbox
+                        checkboxStyle={{
+                          borderWidth: 3
+                        }}
+                        color={argonTheme.COLORS.PRIMARY}
+                        label="Remember Me"
+                      />
+                    </Block>
+                    <Block middle style={{marginTop:15}} >
+                      <Button color="primary" style={styles.createButton} onPress={()=>this.setLogin()} >
+                        <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                          LOG IN
+                        </Text>
+                      </Button>
+                    </Block>
+                  </KeyboardAvoidingView>
+                </Block>
+              </Block>
+            </Block>
+          </Block>
+        </ImageBackground>
+      </Block>
     );
   }
 }
 
-
-
 const styles = StyleSheet.create({
-  container: { 
+  registerContainer: {
+    width: width * 0.9,
+    height: height * 0.60,
+    backgroundColor: "#F4F5F7",
+    borderRadius: 4,
+    shadowColor: argonTheme.COLORS.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowRadius: 8,
+    shadowOpacity: 0.1,
+    elevation: 1,
+    overflow: "hidden"
   },
-  header:{
-    backgroundColor:"#2196f3"
+  socialConnect: {
+    backgroundColor: argonTheme.COLORS.WHITE,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: "#8898AA"
   },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  socialButtons: {
+    width: 120,
+    height: 40,
+    backgroundColor: "#fff",
+    shadowColor: argonTheme.COLORS.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowRadius: 8,
+    shadowOpacity: 0.1,
+    elevation: 1
   },
-  form: {
-    backgroundColor:'#0000',
+  socialTextButtons: {
+    color: argonTheme.COLORS.PRIMARY,
+    fontWeight: "800",
+    fontSize: 14
   },
-  textField: {
+  inputIcons: {
+    marginRight: 12
   },
-  buttonText:{
-    marginTop:'5%',
-    justifyContent:"center",
-    width:'50%',
-    alignSelf: "center",
-    backgroundColor:"#2196f3"
+  passwordCheck: {
+    paddingLeft: 15,
+    paddingTop: 13,
+    paddingBottom: 30
   },
-  forgot:{
-    marginTop:'2%',
-    textAlign:'center',
-    color:'#549ad2',
-    fontSize:15
-  },
-  registerClick:{
-    textAlign:"center",
-    paddingBottom:'3%',
-    fontSize:15,
-    textDecorationLine: 'underline',
-    color:'#549ad2'
-  },
-  createClick:{
-    textAlign:"center",
-    fontSize:15,
-    fontWeight:'500'
-  },
-  l:{
-    backgroundColor:'#ffff',
-    padding:'7%',
-    elevation:1
+  createButton: {
+    width: width * 0.5,
+    marginTop: 25
   }
-})
+});
+
+export default Register;
