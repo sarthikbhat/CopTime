@@ -172,7 +172,13 @@ const AuthStack = createStackNavigator(
         header: null
       },
     },
-    SignUp: SignUpStack,
+    SignUp:  {
+      screen: SignUpStack,
+      navigationOptions: {
+        title: 'SignUp',
+        header: null
+      },
+    },
     transitionConfig
   }
 );

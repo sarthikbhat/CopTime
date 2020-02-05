@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Modal, TouchableOpacity, Dimensions, Button, Alert, BackHandler, DeviceEventEmitter } from 'react-native'
+import { View, Text, StyleSheet, Modal, TouchableOpacity, Dimensions, Button, Alert, BackHandler, DeviceEventEmitter, StatusBar } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
@@ -135,7 +135,8 @@ class Modallar extends Component {
                 onRequestClose={() => {
                     this.props.setModalVisible(false);
                 }}>
-                <View style={{ flex: 1, display: "flex", alignItems: "center" }}>
+                <View style={{ flex: 1, display: "flex", alignItems: "center", marginTop:10 }}>
+                    <StatusBar barStyle='dark-content' color="rgb(240,240,240)"/>
                     <View style={styles.header} >
                         <Icon style={styles.backIcon} name="md-arrow-round-back" size={23} color="#454545" onPress={() => this.props.setModalVisible(false)} />
                         <Text style={styles.helper}>Choose on Map</Text>
@@ -191,7 +192,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         margin: 10,
         flex: 1,
-        textAlign: "center"
+        textAlign: "center",
+        // color:"white"
     },
     done: {
         // flex:1,

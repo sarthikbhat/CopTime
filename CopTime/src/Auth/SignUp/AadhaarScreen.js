@@ -1,15 +1,22 @@
-import React from 'react';
-import { Container, Header, Content, Form, Text,Button,Icon} from 'native-base';
+import React from "react";
 import {
   StyleSheet,
-  View,
-  Alert,
-} from 'react-native';
-import {
-  OutlinedTextField,
-} from 'react-native-material-textfield';
+  ImageBackground,
+  Dimensions,
+  StatusBar,
+  KeyboardAvoidingView,
+  Alert
+} from "react-native";
+import { Block, Checkbox, Text, theme } from "galio-framework";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default class AdhaarScreen extends React.Component {
+import { Button, Input } from "../../Static/components"
+import { Images, argonTheme } from "../../Static/constants";
+
+const { width, height } = Dimensions.get("screen");
+
+class Register extends React.Component {
+
   constructor() {
     super();
     this.state = {
@@ -35,50 +42,133 @@ export default class AdhaarScreen extends React.Component {
     }
   }
 
+
   render() {
     return (
-      <Container style={styles.container}>
-         <Content contentContainerStyle={{flex:1,padding:'5%'}}>
-          <Form styles={styles.form}>
-          <View style={styles.l}>
-          <OutlinedTextField
-            label='Adhaar Number'
-            keyboardType='phone-pad'
-            onChangeText={adhaar =>this.setState({adhaarNumber:adhaar})}
-          />
-          <Button iconRight rounded primary style={styles.buttonText} onPress={()=>this.setOTP()}>
-            <Text>Next</Text>
-            <Icon name='arrow-forward'/>
-          </Button>
-          </View>
-        </Form>
-      </Content>
-    </Container>
+      <Block flex middle>
+        <StatusBar hidden />
+        <ImageBackground
+          source={Images.RegisterBackground}
+          style={{ width, height, zIndex: 1 }}
+        >
+          <Block flex middle>
+            <Block style={styles.registerContainer}>
+              <Block flex={0.40} middle style={styles.socialConnect}>
+                <Text color="#8898AA" size={12}>
+                  Already Registered?
+                </Text>
+                <Block row style={{ marginTop: theme.SIZES.BASE }}>
+                  <Button style={{ ...styles.socialButtons}} onPress={()=>this.props.navigation.navigate('LogIn')} >
+                    <Block row>
+                      <MaterialCommunityIcons
+                        name="login"
+                        size={14}
+                        color={"black"}
+                        style={{ marginTop: 2, marginRight: 5 }}
+                      />
+                      <Text style={styles.socialTextButtons}>Go To Login</Text>
+                    </Block>
+                  </Button>
+                </Block>
+              </Block>
+              <Block flex  >
+                <Block flex={0.17} middle style={{marginTop:5,marginBottom:5}} >
+                  <Text color="#8898AA" size={12}>
+                    Enter your UIDAI number below to continue
+                  </Text>
+                </Block>
+                <Block flex center>
+                  <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior="padding"
+                    enabled
+                  >
+                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                      <Input
+                        borderless
+                        placeholder="XXXX XXXX XXXX"
+                        keyboardType='phone-pad'
+                        iconContent={
+                          <MaterialCommunityIcons
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="account-card-details"
+                            style={styles.inputIcons}
+                          />
+                        }
+                        onChangeText={adhaarNumber =>this.setState({adhaarNumber})}
+                      />
+                    </Block>
+                    
+                    <Block middle style={{marginTop:15}} >
+                      <Button color="primary" style={styles.createButton} onPress={()=>this.setOTP()} >
+                        <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                          Continue
+                        </Text>
+                      </Button>
+                    </Block>
+                  </KeyboardAvoidingView>
+                </Block>
+              </Block>
+            </Block>
+          </Block>
+        </ImageBackground>
+      </Block>
     );
   }
 }
 
-
 const styles = StyleSheet.create({
-  container: { 
+  registerContainer: {
+    width: width * 0.9,
+    height: height * 0.55,
+    backgroundColor: "#F4F5F7",
+    borderRadius: 4,
+    shadowColor: argonTheme.COLORS.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowRadius: 8,
+    shadowOpacity: 0.1,
+    elevation: 1,
+    overflow: "hidden"
   },
-  textField: {
+  socialConnect: {
+    backgroundColor: argonTheme.COLORS.WHITE,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: "#8898AA"
   },
-  buttonText:{
-    marginTop:'5%',
-    justifyContent:"center",
-    width:'50%',
-    alignSelf: "center",
-    backgroundColor:"#2196f3"
+  socialButtons: {
+    width: 120,
+    height: 40,
+    backgroundColor: "#fff",
+    shadowColor: argonTheme.COLORS.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowRadius: 8,
+    shadowOpacity: 0.1,
+    elevation: 1
   },
-  createClick:{
-    textAlign:"center",
-    fontSize:15,
-    fontWeight:'500'
+  socialTextButtons: {
+    color: argonTheme.COLORS.PRIMARY,
+    fontWeight: "800",
+    fontSize: 14
   },
-  l:{
-    backgroundColor:'#ffff',
-    padding:'7%',
-    elevation:1
+  inputIcons: {
+    marginRight: 12
+  },
+  passwordCheck: {
+    paddingLeft: 15,
+    paddingTop: 13,
+    paddingBottom: 30
+  },
+  createButton: {
+    width: width * 0.5,
+    marginTop: 25
   }
-})
+});
+
+export default Register;
