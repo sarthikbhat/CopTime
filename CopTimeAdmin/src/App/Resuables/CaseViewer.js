@@ -148,7 +148,7 @@ class CaseViewer extends Component {
                 <ScrollView>
                     {this.state.caseView.map((cases, index) => (
                        <View style={styles.outerNotify} key={index} >
-                       <TouchableNativeFeedback onPress={() => navigate('Chat') } style={styles.outerNotifyTouch} >
+                       <TouchableNativeFeedback onPress={() => navigate(this.props.redirect) } style={styles.outerNotifyTouch} >
                            <View style={styles.innerNotify} >
                                <View style={styles.rowFlexer}>
                                <View style={{flex:1}} >
