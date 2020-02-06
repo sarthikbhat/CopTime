@@ -5,29 +5,34 @@ import CaseViewer from '../Resuables/CaseViewer'
 const solved = [
     {
         title: 'Chori hi nahi hui to report ku karu',
-        officer: 'Rajesh Kulkarni',
-        location: 'Dadar',
-        caseNo: 'S1244'
+        status: 'Unsolved',
+        time: '03:15 am',
+        caseNo: 'S1244',
+        associate:'Associated To: Rajesh Kulkarni'
     },
     {
         title: 'This is my thug life',
-        officer: 'Hardik Pandya',
-        location: 'Borivali',
-        caseNo: 'S2763'
+        status: 'Unsolved',
+        time: '2:09 pm',
+        caseNo: 'S2763',
+        associate:'Associated To: Ram Mathur'
     },
 ]
 const unsolved = [
     {
         title: '100-200 zyda lele par niche utarde',
-        officer: 'MS Dhoni',
-        location: 'Ranchi',
-        caseNo: 'U1522'
+        status: 'Unsolved',
+        location: '11:34 pm',
+        caseNo: 'U1522',
+        associate:'Click to get assocaited'
     },
     {
         title: 'Abba ka harmonium gayab ho gaya',
-        officer: 'Virat Kohli',
-        location: 'Delhi',
-        caseNo: 'U2876'
+        status: 'Unsolved',
+        time: '02:22 am',
+        caseNo: 'U2876',
+        associate:'Click to get assocaited'
+        
     },
 ]
 

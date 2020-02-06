@@ -4,15 +4,16 @@ import { Input, Text, Block, theme, Button, Icon ,ImageBackground} from 'galio-f
 import { Divider } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Images } from "../../Static/Constants";
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get("screen");
 
 
-export default class CaseViewer extends Component {
+class CaseViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            caseView: props.solved
+            caseView: props.unsolved
         };
     }
 
@@ -78,7 +79,7 @@ export default class CaseViewer extends Component {
     }
 
     render() {
-
+        const { navigate } = useNavigation();
         return (
             <View style={styles.container}>
                 <Input
@@ -90,23 +91,6 @@ export default class CaseViewer extends Component {
                     style={styles.search}
                 />
                 <View style={styles.outerNavUpper}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.caseView('solved')} style={[bg.solved,
-                    {
-                        width: '30%',
-                        margin: 6,
-                        color: "#5e72e5",
-                        flex: 1, justifyContent: 'center', alignItems: 'center',
-                        height: 40,
-                        borderRadius: 10,
-                        shadowColor: 'rgba(0,0,0, .4)', // IOS
-                        shadowOffset: { height: 1, width: 1 }, // IOS
-                        shadowOpacity: 1, // IOS
-                        shadowRadius: 1,
-                        padding: 5,
-                        elevation: 10
-                    }]}>
-                        <Text style={[bg.solved,{ fontFamily: 'TitilliumWeb-Light', letterSpacing: 2 }]} >Solved</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.caseView('unsolved')}
                         style={[bg.unsolved,
                         {
@@ -115,15 +99,32 @@ export default class CaseViewer extends Component {
                             color: "#5e72e5",
                             flex: 1, justifyContent: 'center', alignItems: 'center',
                             height: 40,
-                            borderRadius: 10,
+                            borderRadius: 2,
                             shadowColor: 'rgba(0,0,0, .4)', // IOS
                             shadowOffset: { height: 1, width: 1 }, // IOS
                             shadowOpacity: 1, // IOS
                             shadowRadius: 1,
                             padding: 5,
-                            elevation: 10,
+                            elevation: 2,
                         }]}>
                         <Text style={[bg.unsolved,{ fontFamily: 'TitilliumWeb-Light', letterSpacing: 2 }]} >Unsolved</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.caseView('solved')} style={[bg.solved,
+                    {
+                        width: '30%',
+                        margin: 6,
+                        color: "#5e72e5",
+                        flex: 1, justifyContent: 'center', alignItems: 'center',
+                        height: 40,
+                        borderRadius: 2,
+                        shadowColor: 'rgba(0,0,0, .4)', // IOS
+                        shadowOffset: { height: 1, width: 1 }, // IOS
+                        shadowOpacity: 1, // IOS
+                        shadowRadius: 1,
+                        padding: 5,
+                        elevation: 2
+                    }]}>
+                        <Text style={[bg.solved,{ fontFamily: 'TitilliumWeb-Light', letterSpacing: 2 }]} >Solved</Text>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}  onPress={() => this.caseView('all')} style={[bg.all,
                     {
@@ -132,13 +133,13 @@ export default class CaseViewer extends Component {
                         color: "#5e72e5",
                         flex: 1, justifyContent: 'center', alignItems: 'center',
                         height: 40,
-                        borderRadius: 10,
+                        borderRadius: 2,
                         shadowColor: 'rgba(0,0,0, .4)', // IOS
                         shadowOffset: { height: 1, width: 1 }, // IOS
                         shadowOpacity: 1, // IOS
                         shadowRadius: 1,
                         padding: 5,
-                        elevation: 10
+                        elevation: 2
                     }
                     ]}>
                         <Text style={[bg.all,{ fontFamily: 'TitilliumWeb-Light', letterSpacing: 2 }]} >All</Text>
@@ -146,24 +147,36 @@ export default class CaseViewer extends Component {
                 </View>
                 <ScrollView>
                     {this.state.caseView.map((cases, index) => (
-                        <View style={styles.complainContent} key={index}>
-                            <View style={styles.innerComplaint}>
-                                <View style={styles.complantColor}><View style={styles.complantColorinner}></View></View>
-                                <View style={{ flex: 1 }}></View>
-                                <View style={styles.complantNumber}>
-                                    <Text size={15} muted style={{ marginTop: 2 }}>{cases.caseNo}</Text>
-                                </View>
-                            </View>
-                            <View style={styles.innerComplantContent}>
-                                <Text size={18}>
-                                    {cases.title}</Text>
-                                <Text size={14} style={{ paddingTop: 4 }}>{cases.officer}</Text>
-                                <View style={{ flexDirection: 'row', paddingTop: 4 }}>
-                                    <Icon name="location" family="EvilIcons" color={theme.COLORS.PLACEHOLDER} size={25} style={{ marginLeft: -5 }} />
-                                    <Text size={15} muted>{cases.location}</Text>
-                                </View>
-                            </View>
-                        </View>
+                       <View style={styles.outerNotify} key={index} >
+                       <TouchableNativeFeedback onPress={() => navigate('Chat') } style={styles.outerNotifyTouch} >
+                           <View style={styles.innerNotify} >
+                               <View style={styles.rowFlexer}>
+                               <View style={{flex:1}} >
+                                   </View>
+                                   <View style={styles.complaintNumber}>
+                                       <Text color="#0f0f0f">{cases.caseNo}</Text>
+                                   </View>
+                               </View>
+                               {/* <View style={{flex:1}}></View> */}
+                               <View>
+                                   <Text color="rgb(130,130,130)" size={15}>{cases.title}</Text>
+                               </View>
+                               <View>
+                               <Text color="#9e9a9a" style={{marginTop:5}} size={13}>{cases.associate}</Text>
+                               </View>
+                               <View style={{flex:1}}></View>
+                               <View style={styles.dateTimeFlexer}>
+                                   <View style={{marginLeft:10}} >
+                                       <Text color="#c1c1c1" size={12} style={{marginLeft:-9}}>{cases.status}</Text>
+                                   </View>
+                                   <View style={{flex:1}}></View>
+                                   <View style={{marginRight:10}} >
+                                       <Text color="#c1c1c1" size={12} style={{marginLeft:-9}}>{cases.time}</Text>
+                                   </View>
+                               </View>
+                           </View>
+                       </TouchableNativeFeedback>
+                   </View>
                     ))}
                 </ScrollView>
             </View>
@@ -173,12 +186,12 @@ export default class CaseViewer extends Component {
 
 var bg = StyleSheet.create({
     solved: {
-        backgroundColor: '#5e72e5',
-        color:'#fff'
-    },
-    unsolved: {
         backgroundColor: '#fff',
         color:'#5e72e5'
+    },
+    unsolved: {
+        backgroundColor: '#5e72e5',
+        color:'#fff'
     },
     all: {
         backgroundColor: '#fff',
@@ -199,56 +212,37 @@ const styles = StyleSheet.create({
     outerNavUpper: {
         flexDirection: 'row',
     },
-    complainContent: {
-        padding: 10,
-        marginTop: '8%',
-        marginBottom: '0.5%',
-        borderWidth: 0,
-        elevation: 5,
-        shadowColor: '#fff',
-        shadowOpacity: 0.5,
-        backgroundColor: '#fff',
-    },
-    innerComplaint: {
-        width: '100%',
-        flexDirection: 'row',
-
-    },
-    innerComplainContent: {
-    },
-    complantNumber: {
-        borderRadius: 3,
+    complaintNumber: {
+        borderRadius: 2,
         width: 100,
         height: 30,
         marginTop: -21,
         backgroundColor: '#fff',
         alignItems: 'center',
-        elevation: 5,
+        elevation: 2,
         borderWidth: 0,
         borderColor: 'red',
+        alignItems:'center',
+        justifyContent:'center'
     },
-    complantColor: {
-        width: 30,
-        height: 10,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        elevation: 5,
-        marginTop: -15,
-        marginRight: -5,
-        borderRadius: 3,
+    outerNotify: {
+        backgroundColor: '#ffffff',
+        elevation: 3,
+        marginTop: '7%',
+        marginBottom: '5%'
     },
-    complantColorinner: {
-        backgroundColor: 'red',
-        marginTop: '4%',
-        borderRadius: 3,
-        width: 25,
-        height: 8,
+    innerNotify: {
+        padding: 8,
+        height: 90
     },
-    complantColorinner2: {
-        backgroundColor: 'green',
-        marginTop: '4%',
-        borderRadius: 3,
-        width: 25,
-        height: 8,
+    rowFlexer: {
+        display: "flex",
+        flexDirection: "row"
     },
+    dateTimeFlexer:{
+        display:"flex",
+        flexDirection:"row"
+    }
 })
+
+export default (CaseViewer);

@@ -16,6 +16,7 @@ import LogInScreen from '../Auth/Login/LoginScreen'
 import MapScreen from '../App/Map/MapScreen'
 import EmergencyScreen from '../App/Home/EmergencyScreen'
 import NonEmergencyScreen from '../App/Home/NonEmergencyScreen'
+import RouteDirector from '../App/RouteDirector/RouteDirector'
 
 const FullTab = createBottomTabNavigator(
     {
@@ -48,7 +49,7 @@ const FullTab = createBottomTabNavigator(
             },
         }),
         tabBarOptions: {
-            activeTintColor: 'tomato',
+            activeTintColor: '#5e72e5',
             inactiveTintColor: 'gray',
         },
     }
@@ -90,6 +91,7 @@ const AppStack = createStackNavigator(
                 header: null
             },
         },
+        RouteDirector: RouteDirector
     }
 );
 
