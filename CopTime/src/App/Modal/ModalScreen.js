@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet, Dimensions, ScrollView, TouchableNativeFeedback } from 'react-native'
-import { Switch, TouchableOpacity } from 'react-native-gesture-handler';
+import { View, TextInput, StyleSheet, Dimensions, ScrollView, TouchableOpacity, ImageBackground } from 'react-native'
+import { Switch } from 'react-native-gesture-handler';
 import { OutlinedTextField } from 'react-native-material-textfield';
 import Feather from 'react-native-vector-icons/Feather'
 import { Button } from 'native-base';
+import { Text } from 'galio-framework';
+import { Images, argonTheme } from "../../Static/Constants";
 import ImagePicker from 'react-native-image-picker';
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 
+const { width, height } = Dimensions.get("screen");
 
 const options = {
   title: 'Upload image',
@@ -53,7 +56,7 @@ export default class ModalScreen extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{marginTop:30}}>
         <ScrollView>
           <View style={styles.outer}>
             <View style={styles.heading}>
@@ -64,7 +67,7 @@ export default class ModalScreen extends Component {
                 disabled={this.state.switchDisable}
                 style={styles.switch}
                 onValueChange={() => this.setState(prevState => { return { switchValue: !prevState.switchValue } })}
-                thumbColor="#2196f3"
+                thumbColor="#5e72e5"
               />
             </View>
             <View style={styles.head}>
@@ -83,18 +86,60 @@ export default class ModalScreen extends Component {
             </View>
             <View style={{ height: 50 }} ></View>
             <View style={styles.imgUploader}>
-              <TouchableNativeFeedback
-              >
-                <Button rounded primary style={styles.imgBut} onPress={() => this.imgFunction()}>
-                  <Text style={styles.btnText} >Upload Image</Text>
-                </Button>
-              </TouchableNativeFeedback>
-              <TextInput editable={false} style={{ fontSize: 20, borderColor: 'gray', borderBottomWidth: 1, flex: 0.7, marginTop: 10, paddingLeft: 10 }}>{this.state.source}</TextInput>
+              <TouchableOpacity activeOpacity={1} onPress={() => this.imgFunction()}
+                style={
+                  {
+                    // width: '70%',
+                    flex:0.6,
+                    marginTop: 6,
+                    marginRight: 6,
+                    color: "#5e72e5",
+                    justifyContent: 'center', alignItems: 'center',
+                    height: 50,
+                    borderRadius: 4,
+                    shadowColor: 'rgba(0,0,0, .4)', // IOS
+                    shadowOffset: { height: 1, width: 1 }, // IOS
+                    shadowOpacity: 1, // IOS
+                    shadowRadius: 1,
+                    padding: 5,
+                    elevation: 4,
+                    color: '#5e72e5',
+                    backgroundColor: '#fff',
+                    fontWeight: '600',
+                    overflow: "hidden"
+                  }}>
+                <Text style={{ fontFamily: 'TitilliumWeb-Light', color: '#6a7ce6' }} size={17}>Upload Image</Text>
+              </TouchableOpacity>
+              <TextInput editable={false} style={{ fontSize: 20, borderColor: 'gray', borderBottomWidth: 1, flex: 1, marginTop: 10, paddingLeft: 10 }}>{this.state.source}</TextInput>
             </View>
           </View>
-          <Button iconRight rounded primary style={styles.submit} onPress={() => { this.props.navigation.navigate('Chat',{sos:false} )}}>
+          {/* <Button iconRight rounded primary style={styles.submit} onPress={() => { this.props.navigation.navigate('Chat', { sos: false }) }}>
             <Text style={styles.btnText} >Next</Text>
-          </Button>
+          </Button> */}
+          <TouchableOpacity activeOpacity={1} onPress={() => { this.props.navigation.navigate('Chat', { sos: false }) }}
+                style={
+                  {
+                    width: '40%',
+                    // flex:1,
+                    marginTop: 6,
+                    marginRight: 6,
+                    color: "#5e72e5",
+                    justifyContent: 'center', alignSelf: 'center', alignItems:'center',
+                    height: 50,
+                    borderRadius: 4,
+                    shadowColor: 'rgba(0,0,0, .4)', // IOS
+                    shadowOffset: { height: 1, width: 1 }, // IOS
+                    shadowOpacity: 1, // IOS
+                    shadowRadius: 1,
+                    padding: 5,
+                    elevation: 4,
+                    color: '#5e72e5',
+                    backgroundColor: '#fff',
+                    fontWeight: '600',
+                    overflow: "hidden"
+                  }}>
+                <Text style={{ fontFamily: 'TitilliumWeb-Light', color: '#6a7ce6' }} size={18} >Next</Text>
+              </TouchableOpacity>
           <View style={styles.separator} >
             <View style={styles.separatorContent} >
               {/* <View style={{width:20}}></View> */}
@@ -104,11 +149,11 @@ export default class ModalScreen extends Component {
               {/* <View style={{width:20}}></View> */}
             </View>
           </View>
-          <View style={styles.callButtonBtn} elevation={2} onStartShouldSetResponder={()=>{console.log('should have worked'),RNImmediatePhoneCall.immediatePhoneCall('+919702574733');}} >
+          <View style={styles.callButtonBtn} elevation={2} onStartShouldSetResponder={() => { console.log('should have worked'), RNImmediatePhoneCall.immediatePhoneCall('+919702574733'); }} >
             <View style={styles.callButton} >
               <Feather name="phone-call" size={28} color="rgb(6, 120, 0)" />
             </View>
-            <Text style={styles.callTheCops} > Call the cops</Text>
+            <Text style={styles.callTheCops} size={15}> Call the cops</Text>
           </View>
           <View style={{ height: 20 }}  ></View>
         </ScrollView>
@@ -186,12 +231,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgb(230,230,230)',
+    backgroundColor: '#fff',
+    // borderWidth:0.1
   },
   callButtonBtn: {
-    backgroundColor: '#rgb(210,210,210)',
+    backgroundColor: '#fff',
     height: 70,
-    width: 200,
+    width: 180,
     alignSelf: 'center',
     display: 'flex',
     flexDirection: 'row',
@@ -200,7 +246,7 @@ const styles = StyleSheet.create({
     borderRadius: 35
   },
   callTheCops: {
-    marginLeft: 20,
-    color: "rgb(80,80,80)"
+    marginLeft: 5,
+    color: "#5e72e5"
   }
 })
