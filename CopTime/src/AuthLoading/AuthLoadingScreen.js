@@ -64,8 +64,8 @@ class Onboarding extends React.Component {
           Geolocation.getCurrentPosition(pos => {
             console.log(pos)
             console.log('aao')
-            console.warn(pos.coords.latitude)
-            console.warn(pos.coords.latitude)
+            // console.warn(pos.coords.latitude)
+            // console.warn(pos.coords.latitude)
           }, err => {
             console.log(err)
           }, {
@@ -84,7 +84,7 @@ class Onboarding extends React.Component {
         this.handleBackButtonClick()
       }
     } catch (err) {
-      console.warn(err);
+      // console.warn(err);
       return null
     }
   }
@@ -120,12 +120,12 @@ class Onboarding extends React.Component {
           <Block flex space="around" style={{ zIndex: 2 }}>
             <Block style={styles.title}>
               <Block>
-                <Text color="white" size={55}>
+                <Text color="white" size={55} bold >
                   Cop
                   </Text>
               </Block>
               <Block>
-                <Text color="white" size={55}>
+                <Text color="white" size={55} bold >
                   Time
                   </Text>
               </Block>
@@ -135,8 +135,8 @@ class Onboarding extends React.Component {
                   </Text>
               </Block>
             </Block>
-            <Block center>              
-                <Text color="white" size={16} >Loading...</Text>
+            <Block center>
+              <Text color="white" size={16} >Loading...</Text>
             </Block>
           </Block>
         </Block>

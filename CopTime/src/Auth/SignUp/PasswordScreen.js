@@ -64,18 +64,18 @@ class Register extends React.Component {
 
   pStnMapper = (lat, long) => {
     var best_result
-    Axios.get(`https://maps.googleapis.com/maps/api/place/search/json?location=${lat},${long}&rankby=distance&types=police&sensor=false&key=AIzaSyCgBROiBnx1Ql59mEdqcJl0RiWj2KEyec8`)
+    Axios.get(`https://maps.googleapis.com/maps/api/place/search/json?location=${lat},${long}&rankby=distance&types=police&sensor=false&key=AIzaSyCDIPGLiDnA5MO9sN0Si1YO-2nL5cvnaI4`)
       .then(res => {
         best_result = res.data.results[0]
-        console.warn('lol')
+        // console.warn('lol')
         this.setState({
           loading: false,
           pStn: best_result,
         })
         if (best_result.photos) {
-          Axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${best_result.photos[0].photo_reference}&key=AIzaSyCgBROiBnx1Ql59mEdqcJl0RiWj2KEyec8`)
+          Axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${best_result.photos[0].photo_reference}&key=AIzaSyCDIPGLiDnA5MO9sN0Si1YO-2nL5cvnaI4`)
             .then(res => {
-              console.warn(res.request.responseURL)
+              // console.warn(res.request.responseURL)
               this.setState({
                 imgLoading: false,
                 imgUrl: res.request.responseURL
@@ -116,8 +116,8 @@ class Register extends React.Component {
 
 
     Geolocation.getCurrentPosition(pos => {
-      console.warn(pos.coords.latitude)
-      console.warn(pos.coords.longitude)
+      // console.warn(pos.coords.latitude)
+      // console.warn(pos.coords.longitude)
       this.setState({
         lat: pos.coords.latitude,
         long: pos.coords.longitude

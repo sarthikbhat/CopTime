@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableNativeFeedback, StatusBar, PermissionsAndroid, BackHandler } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableNativeFeedback, StatusBar, PermissionsAndroid, ImageBackground } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Avatar } from 'react-native-elements'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -8,6 +8,13 @@ import { normalize } from '../../Static/Functions/NormalizeFont'
 // import Geolocation from '@react-native-community/geolocation';
 import Geolocation from 'react-native-geolocation-service'
 import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
+
+import { Images, argonTheme } from "../../Static/constants";
+
+
+const { width, height } = Dimensions.get("screen");
+
+const thumbMeasure = (width - 48 - 32) / 3;
 
 export default class HomeScreen extends Component {
 
@@ -59,11 +66,11 @@ export default class HomeScreen extends Component {
                     preventOutSideTouch: true, // true => To prevent the location services window from closing when it is clicked outside
                     preventBackClick: true, // true => To prevent the location services popup from closing when it is clicked back button
                     providerListener: false // true ==> Trigger locationProviderStatusChange listener when the location state changes
-                }).then( (success)=> {
+                }).then((success) => {
                     console.log(success); // success => {alreadyEnabled: false, enabled: true, status: "enabled"}
                     Geolocation.getCurrentPosition(pos => {
-                        console.warn(pos.coords.latitude)
-                        console.warn(pos.coords.latitude)
+                        // console.warn(pos.coords.latitude)
+                        // console.warn(pos.coords.latitude)
                         this.setState({
                             latitude: pos.coords.latitude,
                             longitude: pos.coords.longitude
@@ -84,48 +91,58 @@ export default class HomeScreen extends Component {
                 this.handleBackButtonClick()
             }
         } catch (err) {
-            console.warn(err);
+            // console.warn(err);
         }
     }
 
     render() {
         console.log(this.state)
-        var {latitude} = this.state
-        var {longitude}=this.state
+        var { latitude } = this.state
+        var { longitude } = this.state
         return (
             <View style={styles.homepage} >
-                <StatusBar backgroundColor='#ff2e2e' barStyle='light-content' />
-                <LinearGradient style={[styles.introHome]} colors={['#ff2e2e', '#ff6347', '#ff8035']} elevation={15} >
-                    <View style={styles.homeCentralize} >
-                        <View>
-                            <Text style={styles.copTime} >CopTime</Text>
-                            <Text style={styles.copTimeInfo} >Cops at your service</Text>
-                        </View>
-                        <View style={{ flex: 2 }} ></View>
-                        <View style={styles.user} >
-                            <View style={styles.userPlusGreet} >
-                                <Text style={styles.userName} >Arun</Text>
-                                <Text style={styles.userName} >Good Morning!</Text>
+                <StatusBar backgroundColor='#381f93' barStyle='light-content' />
+                {/* <LinearGradient style={[styles.introHome]} colors={['#ff2e2e', '#ff6347', '#ff8035']} elevation={15} > */}
+                {/* <View style={[styles.introHome,{width:"100%",backgroundColor:"yellow",marginTop:0}]}> */}
+                <View style={styles.introHome}>
+                    <ImageBackground
+                        source={Images.ProfileBackground}
+                        style={{width:"100%"}}
+                        imageStyle={styles.profileBackground}
+                    >
+                        <View style={styles.homeCentralize} >
+                            <View>
+                                <Text style={styles.copTime} >CopTime</Text>
+                                <Text style={styles.copTimeInfo} >Cops at your service</Text>
                             </View>
-                            <View style={{ flex: 1 }} ></View>
-                            <View style={styles.IconBorder} elevation={10} >
-                                <Avatar
-                                    rounded
-                                    size="large"
-                                    title="AT"
-                                    onPress={() =>{this.props.navigation.navigate('Profile')}}
-                                    activeOpacity={0.7}
-                                />
+                            <View style={{ flex: 2 }} ></View>
+                            <View style={styles.user} >
+                                <View style={styles.userPlusGreet} >
+                                    <Text style={styles.userName} >Arun</Text>
+                                    <Text style={styles.userName} >Good Morning!</Text>
+                                </View>
+                                <View style={{ flex: 1 }} ></View>
+                                <View style={styles.IconBorder} elevation={10} >
+                                    <Avatar
+                                        rounded
+                                        size="large"
+                                        title="AT"
+                                        onPress={() => { this.props.navigation.navigate('Profile') }}
+                                        activeOpacity={0.7}
+                                    />
+                                </View>
                             </View>
+                            <View style={{ flex: 4 }} ></View>
+                            <View style={styles.locView} >
+                                <MaterialIcons name="location-on" size={20} color={"rgb(235,235,235)"} />
+                                <Text style={styles.setCurrHome} >Set current location as your home location</Text>
+                            </View>
+                            <View style={{ flex: 5 }} ></View>
                         </View>
-                        <View style={{ flex: 4 }} ></View>
-                        <View style={styles.locView} >
-                            <MaterialIcons name="location-on" size={20} color={"rgb(235,235,235)"} />
-                            <Text style={styles.setCurrHome} >Set current location as your home location</Text>
-                        </View>
-                        <View style={{ flex: 5 }} ></View>
-                    </View>
-                </LinearGradient>
+                    </ImageBackground>
+                </View>
+                {/* </View> */}
+                {/* </LinearGradient> */}
                 <View style={styles.lowerHome} >
                     <ScrollView >
                         <View style={styles.Help} elevation={1} >
@@ -162,11 +179,11 @@ const styles = StyleSheet.create({
     },
     introHome: {
         height: "53%",
-        width: "170%",
+        width: "100%",
         alignSelf: "center",
-        borderBottomRightRadius: Dimensions.get('window').width * 12,
-        borderBottomLeftRadius: Dimensions.get('window').width * 12,
-        backgroundColor: "tomato",
+        borderBottomRightRadius: 0.5 * Dimensions.get('window').width,
+        borderBottomLeftRadius: 0.5 * Dimensions.get('window').width,
+        // backgroundColor: "tomato",
         display: "flex",
         alignItems: 'center',
         marginTop: "-10%",
@@ -182,6 +199,7 @@ const styles = StyleSheet.create({
     copTime: {
         color: 'rgb(245,245,245)',
         fontSize: 30,
+        marginTop:20,
         fontWeight: '700'
     },
     copTimeInfo: {
@@ -242,6 +260,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     lowerHome: {
-        flex: 1
-    }
+        flex: 1,
+        // backgroundColor:"#eee"
+    },
+    profileBackground: {
+        width: width,
+        height: height / 2
+    },
 })
+

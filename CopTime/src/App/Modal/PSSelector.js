@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Dimensions, ImageBackground, StatusBar } from 'react-native';
 import { Input, Text, Block, theme, Button, Icon } from 'galio-framework';
-import { Images, argonTheme } from "../../Static/Constants";
+import { Images, argonTheme } from "../../Static/constants";
 
 const { width, height } = Dimensions.get("screen");
 

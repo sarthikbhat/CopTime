@@ -33,10 +33,10 @@ export default class RouteDirector extends Component {
 
     componentDidMount() {
         this.arm=setInterval(() => {
-            console.warn('timeout')
+            // console.warn('timeout')
             GeoLocation.getCurrentPosition(pos=>{
                 if(this.state.currentLocation.latitude!=pos.coords.latitude||this.state.currentLocation.longitude!=pos.coords.longitude){
-                    console.warn('changed')
+                    // console.warn('changed')
                     this.setState({
                         currentLocation:{
                             latitude:pos.coords.latitude,

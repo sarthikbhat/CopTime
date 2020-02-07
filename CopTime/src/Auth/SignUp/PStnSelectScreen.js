@@ -61,8 +61,8 @@ class Modallar extends Component {
         });
 
         Geolocation.getCurrentPosition(pos => {
-            console.warn(pos.coords.latitude)
-            console.warn(pos.coords.longitude)
+            // console.warn(pos.coords.latitude)
+            // console.warn(pos.coords.longitude)
             var obj = {
                 nativeEvent: {
                     coordinate: {

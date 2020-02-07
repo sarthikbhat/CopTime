@@ -6,10 +6,9 @@ const { width } = Dimensions.get('screen');
 import argonTheme from '../constants/Theme';
 
 const defaultMenu = [
-  { id: 'popular', title: 'Popular', },
-  { id: 'beauty', title: 'Beauty', },
-  { id: 'cars', title: 'Cars', },
-  { id: 'motocycles', title: 'Motocycles', },
+  { id: 'pending', title: 'Pending', },
+  { id: 'Solved', title: 'Solved', },
+  { id: 'All', title: 'All', },
 ];
 
 export default class Tabs extends React.Component {
@@ -120,7 +119,7 @@ export default class Tabs extends React.Component {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: "#eee",
     zIndex: 2,
   },
   shadow: {
