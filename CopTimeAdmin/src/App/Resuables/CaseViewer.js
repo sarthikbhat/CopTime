@@ -4,7 +4,6 @@ import { Input, Text, Block, theme, Button, Icon ,ImageBackground} from 'galio-f
 import { Divider } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Images } from "../../Static/Constants";
-import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -79,7 +78,6 @@ class CaseViewer extends Component {
     }
 
     render() {
-        const { navigate } = useNavigation();
         return (
             <View style={styles.container}>
                 <Input
@@ -148,7 +146,7 @@ class CaseViewer extends Component {
                 <ScrollView>
                     {this.state.caseView.map((cases, index) => (
                        <View style={styles.outerNotify} key={index} >
-                       <TouchableNativeFeedback onPress={() => navigate(this.props.redirect) } style={styles.outerNotifyTouch} >
+                       <TouchableNativeFeedback onPress={() => this.props.navigation.navigate(this.props.redirect) } style={styles.outerNotifyTouch} >
                            <View style={styles.innerNotify} >
                                <View style={styles.rowFlexer}>
                                <View style={{flex:1}} >
@@ -245,4 +243,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default (CaseViewer);
+export default CaseViewer;

@@ -17,9 +17,17 @@ import MapScreen from '../App/Map/MapScreen'
 import EmergencyScreen from '../App/Home/EmergencyScreen'
 import NonEmergencyScreen from '../App/Home/NonEmergencyScreen'
 import RouteDirector from '../App/RouteDirector/RouteDirector'
+import HomeScreen from '../App/Home/HomeScreen'
 
 const FullTab = createBottomTabNavigator(
     {
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                title: 'Home',
+                header: null
+            },
+        },
         Emergency: {
             screen: EmergencyScreen,
             navigationOptions: {
@@ -35,7 +43,14 @@ const FullTab = createBottomTabNavigator(
                 const { routeName } = navigation.state;
                 let IconComponent = MaterialCommunityIcons;
                 let iconName;
-                if (routeName === 'Emergency') {
+                if (routeName === 'Home') {
+                    iconName = focused
+                        ? 'home'
+                        : 'home-outline';
+                    // Sometimes we want to add badges to some icons.
+                    // You can check the implementation below.
+                }
+                else if (routeName === 'Emergency') {
                     iconName = focused
                         ? 'flash-red-eye'
                         : 'flash-outline';

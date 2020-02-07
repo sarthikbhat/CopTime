@@ -40,7 +40,7 @@ export default class EmergencyScreen extends Component {
     render() {
 
         return (
-               <CaseViewer solved={solved} unsolved={unsolved} redirect={'Chat'}/>
+               <CaseViewer solved={solved} unsolved={unsolved} redirect={'Chat'} navigation={this.props.navigation} />
         )
     }
 }
