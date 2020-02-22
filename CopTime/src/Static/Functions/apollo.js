@@ -12,7 +12,7 @@ const makeApolloClient = (token) => {
     //   });
 
     const link = new WebSocketLink({
-        uri: `wss://learn.hasura.io/graphql`,
+        uri: `ws:10.120.110.114:4000/graphql`,
         options: {
             reconnect: true,
             connectionParams: {

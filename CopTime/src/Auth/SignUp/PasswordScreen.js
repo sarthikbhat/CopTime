@@ -27,12 +27,12 @@ class Register extends React.Component {
       modalVisibleShort: false,
       loading: true,
       imgLoading: true,
-      pStn:"",
-      imgUrl:'https://img.favpng.com/25/0/20/badge-police-officer-special-police-indian-police-service-png-favpng-bmZPUBHvZtTpXQzhgVTNJ94t6.jpg'
+      pStn: "",
+      imgUrl: 'https://img.favpng.com/25/0/20/badge-police-officer-special-police-indian-police-service-png-favpng-bmZPUBHvZtTpXQzhgVTNJ94t6.jpg'
     };
   }
 
-  
+
 
   redirectLogin = (e) => {
     const { password, confPassword } = this.state;
@@ -64,7 +64,9 @@ class Register extends React.Component {
 
   pStnMapper = (lat, long) => {
     var best_result
-    Axios.get(`https://maps.googleapis.com/maps/api/place/search/json?location=${lat},${long}&rankby=distance&types=police&sensor=false&key=AIzaSyCDIPGLiDnA5MO9sN0Si1YO-2nL5cvnaI4`)
+    console.warn(lat)
+    console.warn(long)
+    Axios.get(`https://maps.googleapis.com/maps/api/place/search/json?location=${lat},${long}&rankby=distance&types=police&sensor=false&key=AIzaSyDRG1QPqTaoF3M-6mm7A4A6b__WzC7Bhws`)
       .then(res => {
         best_result = res.data.results[0]
         // console.warn('lol')
@@ -73,7 +75,7 @@ class Register extends React.Component {
           pStn: best_result,
         })
         if (best_result.photos) {
-          Axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${best_result.photos[0].photo_reference}&key=AIzaSyCDIPGLiDnA5MO9sN0Si1YO-2nL5cvnaI4`)
+          Axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${best_result.photos[0].photo_reference}&key=AIzaSyDRG1QPqTaoF3M-6mm7A4A6b__WzC7Bhws`)
             .then(res => {
               // console.warn(res.request.responseURL)
               this.setState({
@@ -261,7 +263,7 @@ class Register extends React.Component {
                       </TouchableOpacity>
                     </Block>
                     <Block middle style={{ marginTop: 10 }} >
-                      <Button color="primary" style={styles.createButton} onPress={() => {this.props.navigation.goBack(null)}} >
+                      <Button color="primary" style={styles.createButton} onPress={() => { this.props.navigation.goBack(null) }} >
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           Continue
                         </Text>
