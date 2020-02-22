@@ -16,14 +16,23 @@ import LogInScreen from '../Auth/Login/LoginScreen'
 import MapScreen from '../App/Map/MapScreen'
 import EmergencyScreen from '../App/Home/EmergencyScreen'
 import NonEmergencyScreen from '../App/Home/NonEmergencyScreen'
+import RouteDirector from '../App/RouteDirector/RouteDirector'
+import HomeScreen from '../App/Home/HomeScreen'
 
 const FullTab = createBottomTabNavigator(
     {
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                title: 'Home',
+                header: false
+            },
+        },
         Emergency: {
             screen: EmergencyScreen,
             navigationOptions: {
                 title: 'Emergency',
-                header: null
+                header: false
             },
         },
         NonEmergency: NonEmergencyScreen,
@@ -34,7 +43,14 @@ const FullTab = createBottomTabNavigator(
                 const { routeName } = navigation.state;
                 let IconComponent = MaterialCommunityIcons;
                 let iconName;
-                if (routeName === 'Emergency') {
+                if (routeName === 'Home') {
+                    iconName = focused
+                        ? 'home'
+                        : 'home-outline';
+                    // Sometimes we want to add badges to some icons.
+                    // You can check the implementation below.
+                }
+                else if (routeName === 'Emergency') {
                     iconName = focused
                         ? 'flash-red-eye'
                         : 'flash-outline';
@@ -48,7 +64,7 @@ const FullTab = createBottomTabNavigator(
             },
         }),
         tabBarOptions: {
-            activeTintColor: 'tomato',
+            activeTintColor: '#5e72e5',
             inactiveTintColor: 'gray',
         },
     }
@@ -59,16 +75,16 @@ const ReportStack = createStackNavigator(
     {
         Chat: {
             screen: ChatScreen,
-            navigationOptions: {
-                title: 'Full',
-                header: null
-            },
+            // navigationOptions: {
+            //     title: 'Full',
+            //     header: false
+            // },
         },
         Map: {
             screen: MapScreen,
             navigationOptions: {
                 title: 'Full',
-                header: null
+                header: false
             },
         },
     }
@@ -80,7 +96,7 @@ const AppStack = createStackNavigator(
             screen: FullTab,
             navigationOptions: {
                 title: 'Full',
-                header: null
+                header: false
             },
         },
         Report: {
@@ -90,6 +106,7 @@ const AppStack = createStackNavigator(
                 header: null
             },
         },
+        RouteDirector: RouteDirector
     }
 );
 
@@ -106,7 +123,7 @@ const IDStack = createStackNavigator(
             screen: OTPScreen,
             navigationOptions: {
                 title: 'OTP',
-                header: null
+                headerShown: false
             },
         },
     }
@@ -114,15 +131,39 @@ const IDStack = createStackNavigator(
 
 const SignUpStack = createAnimatedSwitchNavigator(
     {
-        ID: IDStack,
-        Password: PasswordScreen
+        ID: {
+            screen: IDStack,
+            navigationOptions: {
+                title: 'OTP',
+                headerShown: false
+            },
+        },
+        Password: {
+            screen: PasswordScreen,
+            navigationOptions: {
+                title: 'OTP',
+                headerShown: false
+            },
+        },
     }
 );
 
 const AuthStack = createStackNavigator(
     {
-        LogIn: LogInScreen,
-        SignUp: SignUpStack
+        LogIn:  {
+            screen: LogInScreen,
+            navigationOptions: {
+                title: 'OTP',
+                headerShown: false
+            }, 
+        },      
+        SignUp: {
+            screen: SignUpStack,
+            navigationOptions: {
+                title: 'OTP',
+                header: false
+            },
+        }
     }
 );
 

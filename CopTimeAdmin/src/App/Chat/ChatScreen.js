@@ -9,20 +9,23 @@ class ChatScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
             title: navigation.getParam('name', 'Chat'),
-            headerRight: () => (
-                <React.Fragment>
-                    <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgb(250,250,250)')} >
-                        <View style={styles.upperCallButtons}>
-                            <Iocon name="md-videocam" size={25} color="rgb(255,255,255)" />
-                        </View>
-                    </TouchableNativeFeedback>
-                    <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgb(250,250,250)')}>
-                        <Iocon name="md-call" size={25} color="rgb(255,255,255)" style={styles.upperCallButtons} />
-                    </TouchableNativeFeedback>
-                </React.Fragment>
-            ),
+            // headerRight: () => (
+            //     <React.Fragment>
+            //         <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgb(250,250,250)')} >
+            //             <View style={styles.upperCallButtons}>
+            //                 <Iocon name="md-videocam" size={25} color="rgb(255,255,255)" />
+            //             </View>
+            //         </TouchableNativeFeedback>
+            //         <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgb(250,250,250)')}>
+            //             <View style={styles.upperCallButtons}>
+
+            //                 <Iocon name="md-call" size={25} color="rgb(255,255,255)" style={styles.upperCallButtons} />
+            //             </View>
+            //         </TouchableNativeFeedback>
+            //     </React.Fragment>
+            // ),
             headerStyle: {
-                backgroundColor: 'rgb(16,12,70)',
+                backgroundColor: '#381f93',
             },
             headerTintColor: 'rgb(255,255,255)',
             headerTitleStyle: {
@@ -90,28 +93,28 @@ class ChatScreen extends React.Component {
                     <ScrollView ref={ref => this.scrollView = ref}
                         onContentSizeChange={(contentWidth, contentHeight) => {
                             this.scrollView.scrollToEnd({ animated: true });
-                        }}>
+                        }} style={styles.chatScroll}>
                         {
-                            this.state.allChats.map(elm => {
+                            this.state.allChats.map((elm,index) => {
                                 return (
                                     elm.type == "sent" ? (
-                                            <View style={[styles.messageContainer, styles.send]} >
-                                                <View style={[styles.messageTextBox, styles.sendMessageTextBox]} >
-                                                    <Text style={styles.sendMessageText} >{elm.data}</Text>
+                                        <View style={[styles.messageContainer, styles.send]} key={index}>
+                                            <View style={[styles.messageTextBox, styles.sendMessageTextBox]} >
+                                                <Text style={styles.sendMessageText} >{elm.data}</Text>
+                                            </View>
+                                            <View style={styles.timestamp} >
+                                                <Text style={styles.timestampText} >{elm.timestamp}</Text>
+                                            </View>
+                                        </View>
+                                    ) : (
+                                            <View style={[styles.messageContainer, styles.receive]} >
+                                                <View style={[styles.messageTextBox, styles.receiveMessageTextBox]} >
+                                                    <Text style={styles.receiveMessageText} >{elm.data}</Text>
                                                 </View>
-                                                <View style={styles.timestamp} >
+                                                <View style={[styles.timestamp, { marginLeft: 20 }]} >
                                                     <Text style={styles.timestampText} >{elm.timestamp}</Text>
                                                 </View>
                                             </View>
-                                    ) : (
-                                                <View style={[styles.messageContainer, styles.receive]} >
-                                                    <View style={[styles.messageTextBox, styles.receiveMessageTextBox]} >
-                                                        <Text style={styles.receiveMessageText} >{elm.data}</Text>
-                                                    </View>
-                                                    <View style={[styles.timestamp,{marginLeft:20}]} >
-                                                        <Text style={styles.timestampText} >{elm.timestamp}</Text>
-                                                    </View>
-                                                </View>
                                         )
                                 )
                             })
@@ -230,6 +233,9 @@ const styles = StyleSheet.create({
     },
     receiveMessageText: {
 
+    },
+    chatScroll: {
+        marginTop: 30
     }
 
 })
