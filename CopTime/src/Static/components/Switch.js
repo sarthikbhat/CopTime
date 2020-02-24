@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Platform } from 'react-native';
 
-import argonTheme from '../constants/Theme';
+import argonTheme from '../Constants/Theme';
 
 class MkSwitch extends React.Component {
   render() {

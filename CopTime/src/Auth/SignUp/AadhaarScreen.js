@@ -11,7 +11,7 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { Button, Input } from "../../Static/components"
-import { Images, argonTheme } from "../../Static/constants";
+import { Images, argonTheme } from "../../Static/Constants";
 
 const { width, height } = Dimensions.get("screen");
 

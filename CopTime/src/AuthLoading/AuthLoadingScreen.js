@@ -13,8 +13,8 @@ import { Block, Button, Text, theme } from "galio-framework";
 
 const { height, width } = Dimensions.get("screen");
 
-import argonTheme from "../Static/constants/Theme";
-import Images from "../Static/constants/Images";
+import argonTheme from "../Static/Constants/Theme";
+import Images from "../Static/Constants/Images";
 
 class Onboarding extends React.Component {
   componentDidMount = async () => {
@@ -90,7 +90,7 @@ class Onboarding extends React.Component {
   }
 
   _bootstrapAsync = async () => {
-    const userToken = undefined
+    const userToken = 'undefined'
     // const userToken = await AsyncStorage.getItem('userToken');
     // const wait= await this.waiter(3)
     function wait(ms) {

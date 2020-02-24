@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 
-import { argonTheme } from '../constants';
+import { argonTheme } from '../Constants';
 
 
 class Card extends React.Component {

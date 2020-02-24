@@ -5,7 +5,7 @@ import { OutlinedTextField } from 'react-native-material-textfield';
 import Feather from 'react-native-vector-icons/Feather'
 import { Button } from 'native-base';
 import { Text } from 'galio-framework';
-import { Images, argonTheme } from "../../Static/constants";
+import { Images } from "../../Static/Constants";
 import ImagePicker from 'react-native-image-picker';
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 

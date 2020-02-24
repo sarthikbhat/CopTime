@@ -23,6 +23,7 @@ import LogInScreen from '../Auth/Login/LoginScreen'
 import AuthLoadingScreen from '../AuthLoading/AuthLoadingScreen'
 import ProfileScreen from '../App/Profile/ProfileScreen'
 import RouteDirector from '../App/RouteDirector/RouteDirector'
+import SOSScreen from '../App/SOS/SOSScreen'
 
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
@@ -124,7 +125,8 @@ const ComplaintSwitch = createAnimatedSwitchNavigator(
     Modal: ModalScreen,
     PSSelector: PSSelectorScreen,
     Chat: ChatScreen,
-    ChatBot: ChatBot
+    ChatBot: ChatBot,
+    SOS:SOSScreen,
   }
 )
 

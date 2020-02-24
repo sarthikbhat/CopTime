@@ -10,7 +10,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 import { Button, Input } from "../../Static/components"
-import { Images, argonTheme } from "../../Static/constants";
+import { Images, argonTheme } from "../../Static/Constants";
 import Modallar from "./Modallar.js";
 
 const { width, height } = Dimensions.get("screen");

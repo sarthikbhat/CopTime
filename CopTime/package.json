@@ -1,5 +1,5 @@
 {
-  "name": "CopTime",
+  "name": "coptime",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -34,7 +34,7 @@
     "react-native-image-picker": "^2.0.0",
     "react-native-immediate-phone-call": "^1.0.0",
     "react-native-linear-gradient": "^2.5.6",
-    "react-native-maps": "0.26.1",
+    "react-native-maps": "^0.26.1",
     "react-native-maps-directions": "^1.7.3",
     "react-native-material-textfield": "^0.16.1",
     "react-native-modal-dropdown": "^0.7.0",
@@ -42,11 +42,14 @@
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.25",
+    "react-native-sound": "^0.11.0",
+    "react-native-torch": "^1.1.5",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.10",
     "react-navigation-animated-switch": "^0.4.1",
     "react-navigation-stack": "^2.0.15",
     "react-navigation-tabs": "^2.7.0",
+    "react-sound": "^1.2.0",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {

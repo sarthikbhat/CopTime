@@ -13,7 +13,7 @@ import OTPInputView from '@twotalltotems/react-native-otp-input'
 
 
 import { Button, Input } from "../../Static/components"
-import { Images, argonTheme } from "../../Static/constants";
+import { Images, argonTheme } from "../../Static/Constants";
 
 const { width, height } = Dimensions.get("screen");
 

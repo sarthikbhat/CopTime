@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
 const { width } = Dimensions.get('screen');
-import argonTheme from '../constants/Theme';
+import argonTheme from '../Constants/Theme';
 
 const defaultMenu = [
   { id: 'pending', title: 'Pending', },
