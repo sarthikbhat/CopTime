@@ -1,161 +1,188 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableNativeFeedback, StatusBar, PixelRatio, Platform } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import React, { Component } from "react";
+import {
+    StyleSheet,
+    ImageBackground,
+    Dimensions,
+    StatusBar,
+    KeyboardAvoidingView,
+    Alert,
+    View,
+    ScrollView,
+    TouchableNativeFeedback
+} from "react-native";
+import { Divider } from 'react-native-elements';
+import { Block, Checkbox, Text, theme } from "galio-framework";
+
+import { Button, Input } from "../../Static/components"
 import { Avatar } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome';
-import LinearGradient from 'react-native-linear-gradient'
-import { normalize } from '../../Static/Functions/NormalizeFont'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Images, argonTheme } from "../../Static/Constants";
+import { Body } from "native-base";
+
+const { width, height } = Dimensions.get("window");
 
 export default class ProfileScreen extends Component {
+    constructor() {
+        super();
+        this.state = {
+            contact1: 'No contact added'
+        }
+
+    }
     render() {
         return (
-            <View style={styles.profile} >
-            <StatusBar backgroundColor='#ff2e2e' barStyle='light-content' />
-            <LinearGradient style={[styles.introProfile]} colors={['#ff2e2e', '#ff6347', '#ff8035']} elevation={15} >
-                <View style={styles.profileCenter} >
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.copTime} >CopTime</Text>
-                        <Text style={styles.copTimeInfo} >Vigilante at your service</Text>
-                    </View>
-                    <View style={styles.user} >
-                        <View style={styles.userPlusGreet} >
-                            <Text style={styles.userName} >Arun Sharma</Text>
+            <Block >
+                <StatusBar backgroundColor="#c8d2db" barStyle="dark-content" />
+                <ImageBackground
+                    source={require('../../Static/assets/imgs/profile-bg.jpg')}
+                    style={{ width, height, zIndex: -1 }}
+                >
+                    <ScrollView>
+                        <View
+                            style={styles.profileBackground}
+                        >
+                            <Avatar rounded size="large" title="SB" containerStyle={styles.avatarStyle} />
+                            <Text style={styles.textProfile}>Sarthik Bhat</Text>
                         </View>
-                        <View style={styles.IconBorder} elevation={10} >
-                            <Avatar
-                                rounded
-                                size="medium"
-                                title="AT"
-                                onPress={() => this.props.navigation.navigate('Profile')}
-                                activeOpacity={0.7}
-                            />
+                        <View style={styles.profileInfo}>
+                            <Text style={styles.textInfo}>Basic Information</Text>
+                            <Divider style={{ width: width / 1.1, alignSelf: 'center', }} />
+                            <View style={styles.phone}>
+                                <Text
+                                    style={{
+                                        // marginLeft:10,
+                                        fontSize: 17
+                                    }}
+                                >Phone Number</Text>
+                                <Text
+                                    style={{ color: "#787777" }}
+                                >7889776139</Text>
+                            </View>
+                            <View style={styles.adhaar}>
+                                <Text
+                                    style={{
+                                        // marginLeft:10,
+                                        fontSize: 17
+                                    }}
+                                >Adhaar Number</Text>
+                                <Text
+                                    style={{ color: "#787777" }}
+                                >XXXX-XXXX-XXXX</Text>
+                            </View>
                         </View>
-                    </View>
-                </View>   
-            </LinearGradient>
-            <View style={styles.tabsOuter}>
-                <View style={styles.tabs}>
-                    <Text style={styles.tabText1}>Adhaar Number</Text>
-                    <View style={{flex:1}}></View>
-                    <Text style={styles.tabText2}>4545-4545-4545-4545</Text>
-                </View>
-                <View style={styles.tabs}>
-                    <Text style={styles.tabText1}>Phone Number</Text>
-                    <View style={{flex:1}}></View>
-                    <Text style={styles.tabText2}>901-877-6565</Text>
-                </View>
-               
-                    <TouchableNativeFeedback onPress={()=>console.warn('works')}>
-                    <View style={styles.tabs}>
-                    <Text style={styles.tabText1}>Change Password</Text>
-                    </View>
-                    </TouchableNativeFeedback>
-                
-                    <TouchableNativeFeedback onPress={()=>console.warn('Sign Out works')}>
-                    <View style={styles.tabs}>
-                    <Text style={[styles.tabText1,styles.signOut]}>Sign Out</Text>
-                    <Icon name="sign-out" size={25} color="red" style={[styles.tabText1,styles.signOut,styles.icon]}/>
-                    </View>
-                    </TouchableNativeFeedback>
-            </View>
-        </View>
-    )
-}
+                        <View style={styles.emergencyContacts}>
+                            <View style={{
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={styles.textInfo}>Emergency Contacts</Text>
+                                <View style={{ flex: 0.95 }}></View>
+                                <MaterialIcons 
+                                onPress={() => this.props.navigation.navigate('EditContacts') }
+                                style={styles.editIcon} name="edit" size={20} color="#787777" />
+                            </View>
+                            <Divider style={{ width: width / 1.1, alignSelf: 'center', }} />
+                            <View style={styles.contact}>
+                                {/* <Ionicons style={styles.contactIcon} name="ios-contact" size={31} color="#000" /> */}
+                                {/* <View style={{flex:0.05}}></View> */}
+
+                                <Text style={styles.contactText}>No emergency contacts</Text>
+                                <Text style={styles.contactText2}>To send an SOS message during emergency to your emergency contacts , you need to add them</Text>
+                                <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('EditContacts') }>
+                                    <Text style={{
+                                        textAlign: 'center',
+                                        fontSize:15,
+                                        padding:15,
+                                        paddingBottom:4,
+                                        color:'red'
+                                    }}>Add Contacts</Text>
+                                </TouchableNativeFeedback>
+                                <View style={{
+                                }}>
+                                </View>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </ImageBackground>
+            </Block >
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-profile: {
-    flex: 1,
-},
-introProfile: {
-    height: "25%",
-    width: "120%",
-    alignSelf: "center",
-    borderBottomRightRadius: Dimensions.get('window').width,
-    borderBottomLeftRadius: Dimensions.get('window').width,
-    backgroundColor: "tomato",
-    display: "flex",
-    alignItems: 'center',
-    marginTop: "-20%",
-    paddingTop: "10%",
-},
-profileCenter: {
-    width: Dimensions.get('window').width-80,
-    // padding: 10,
-    height: "100%",
-    display: 'flex',
-    flexDirection: 'column'
-},
-IconBorder: {
-    padding: 5,
-    borderRadius: 30,
-    backgroundColor: "white"
-},
-copTime: {
-    color: 'rgb(245,245,245)',
-    fontSize: 20,
-    fontWeight: '700',
-    textAlign:'center'
-},
-copTimeInfo: {
-    color: 'rgb(245,245,245)',
-    fontSize: 10,
-    // marginLeft: 10,
-    textAlign:'center'
-},
-user: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent:'center',
-    marginTop: -10,
-    padding: 50,
-    // paddingRight: 5
-},
-userName: {
-    fontSize: normalize(22),
-    color: "white",
-    padding:10
-},
-tabsOuter:{
-    flex:1,
-    padding:10,
-    marginTop:30
-},
-tabs:{
-    // padding:'2%',
-    height:Dimensions.get('window').height/12,
-    // paddingBottom:'1%',
-    // paddingLeft:'1%',
-    borderBottomWidth:0.5,
-    borderBottomColor:'gray',
-    flexDirection:'row',
-    // elevation:1
-},
-tabText1:{
-    // 
-    fontSize:20,
-    includeFontPadding:false,
-    textAlignVertical:'bottom'
-    // padding:'2%',
-    // paddingBottom:'1%',
-    // paddingLeft:'1%',
-},
-tabText2:{
-    // flex:1,
-    fontSize:20,
-    includeFontPadding:false,
-    textAlignVertical:'bottom',
-    // padding:'2%',
-    // paddingBottom:'1%',
-    // paddingLeft:'1%',
-    color:'#888b8f',
-},
-signOut:{
-    color:'red'
-},
-icon:{
-    marginLeft:10
-}
+    profileBackground: {
+        // width: width/1.1,
+        marginTop: 85,
+        width: width / 1.05,
+        alignSelf: 'center',
+        // height: height / 5,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 40,
+        paddingBottom: 10
+        // alignSelf:'center',
+        // justifyContent:'center'
+        // zIndex:-1
+    },
+    avatarStyle: {
+        marginTop: -(height / 12),
+        // padding:10,
+        alignSelf: 'center',
+        elevation: 8,
+        borderColor: "#ffff",
+        borderWidth: 4
+    },
+    textProfile: {
+        fontSize: 25,
+        textAlign: 'center',
+        fontFamily: 'TitilliumWeb-Light',
+        padding: 10,
+    },
+    profileInfo: {
+        marginTop: 20,
+        backgroundColor: '#fff',
+        width: width / 1.05,
+        alignSelf: 'center',
+        borderRadius: 5,
+        // padding: 40,
+        paddingBottom: 10
+    },
+    textInfo: {
+        fontSize: 17,
+        // textAlign: 'center',
+        fontFamily: 'TitilliumWeb-Light',
+        padding: 10,
+        color: '#787777'
+    },
+    emergencyContacts: {
+        marginTop: 20,
+        backgroundColor: '#fff',
+        width: width / 1.05,
+        alignSelf: 'center',
+        borderRadius: 5,
+        // padding: 40,
+        paddingBottom: 10
+    },
+    editIcon: {
+        // justifyContent:'center',
+        alignSelf: 'center'
+    },
+    phone: {
+        padding: 10
+    },
+    adhaar: {
+        padding: 10
+    },
+    contact: {
+        padding: 15
+    },
+    contactText: {
+        fontSize: 20,
+        textAlign: 'center'
+    },
+    contactText2: {
+        fontSize: 15,
+        textAlign: 'center'
+    }
 })
 

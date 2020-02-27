@@ -65,26 +65,22 @@ export default class HomeScreen extends Component {
         // )
     }
 
-    // requestCameraPermission = async (currentComponent) => {
-    //     try {
-    //         const granted = await PermissionsAndroid.request(
-    //             PermissionsAndroid.PERMISSIONS.CAMERA,
-    //             {
-    //                 'title': 'ReactNativeCode Camera Permission',
-    //                 'message': 'ReactNativeCode App needs access to your Camera.'
-    //             }
-    //         )
+    requestCameraPermission = async (currentComponent) => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.CAMERA,
+            )
 
-    //         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //             console.warn("Camera Permission Granted.");
-    //         }
-    //         else {
-    //             console.warn("Camera Permission Not Granted");
-    //         }
-    //     } catch (err) {
-    //         console.warn(err)
-    //     }
-    // }
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.warn("Camera Permission Granted.");
+            }
+            else {
+                console.warn("Camera Permission Not Granted");
+            }
+        } catch (err) {
+            console.warn(err)
+        }
+    }
 
 
 
@@ -319,6 +315,8 @@ const styles = StyleSheet.create({
         height: height / 2
     },
 })
+
+
 
 
 

@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Transition } from 'react-native-reanimated';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 
 import HomeScreen from '../App/Home/HomeScreen'
@@ -22,6 +23,7 @@ import PasswordScreen from '../Auth/SignUp/PasswordScreen'
 import LogInScreen from '../Auth/Login/LoginScreen'
 import AuthLoadingScreen from '../AuthLoading/AuthLoadingScreen'
 import ProfileScreen from '../App/Profile/ProfileScreen'
+import EditContacts from '../App/Profile/EditContacts'
 import RouteDirector from '../App/RouteDirector/RouteDirector'
 import SOSScreen from '../App/SOS/SOSScreen'
 
@@ -87,7 +89,8 @@ const FullStack = createBottomTabNavigator(
       },
     },
     Notifications: NotificationsStack,
-    Chats: AllChatsScreen
+    Chats: AllChatsScreen,
+    Profile: ProfileScreen
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -108,6 +111,10 @@ const FullStack = createBottomTabNavigator(
           IconComponent = MaterialCommunityIcons
           iconName = focused ? 'message-text' : 'message-text-outline';
         }
+        else if (routeName === 'Profile') {
+          IconComponent = FontAwesome
+          iconName = focused ? 'user' : 'user';
+        }
 
         // You can return any component that you like here!
         return <IconComponent name={iconName} size={25} color={tintColor} />;
@@ -126,7 +133,14 @@ const ComplaintSwitch = createAnimatedSwitchNavigator(
     PSSelector: PSSelectorScreen,
     Chat: ChatScreen,
     ChatBot: ChatBot,
-    SOS:SOSScreen,
+    EditContacts: {
+      screen: EditContacts,
+      navigationOptions: {
+        title: 'Edit Contacts',
+        headerShown: false
+      },
+    }
+    // SOS: SOSScreen,
   }
 )
 
@@ -146,9 +160,10 @@ const AppStack = createStackNavigator(
         header: null
       },
     },
-    
-    Profile: ProfileScreen
-  }
+    SOS: SOSScreen,
+   
+    },
+  
 );
 
 const UIDAIStack = createStackNavigator(
